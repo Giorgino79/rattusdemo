@@ -19,12 +19,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from dipendenti import views as dipendenti_views
 
 urlpatterns = [
     path("select2/", include("django_select2.urls")),
     path("admin/", admin.site.urls),
+    path('', dipendenti_views.entra, name='login'),
     path('',include('dipendenti.urls')),
-    path('',include('home.urls')),
+    path('home',include('home.urls')),
     path('anagrafica/',include('anagrafica.urls')),
     path('automezzi/',include('automezzi.urls')),
     path('contratti/',include('contratti.urls')),

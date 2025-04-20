@@ -30,7 +30,10 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 # ... altre variabili d'ambiente
 
 AUTH_USER_MODEL = 'dipendenti.Dipendente'
-ALLOWED_HOST=['*']
+ALLOWED_HOSTS=['rattusdemo-5b67cfda74f7.herokuapp.com']
+
+if DEBUG:
+    ALLOWED_HOSTS += ['localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
