@@ -13,6 +13,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user, get_user_model
 from automezzi.models import Automezzo
+import logging
+logger = logging.getLogger(__name__)
+
 
 def registradipendente(request):
     form=DipendenteForm(request.POST, request.FILES)
@@ -33,21 +36,40 @@ def vedidipendente(request,pk):
     dipen=Dipendente.objects.get(pk=pk)
     return render(request,'dipendenti/vedidipendente.html', {'dipen':dipen})        
 
-def entra(request):
-    if request.method=='POST':
-        username=request.POST['username']
-        password=request.POST['password']
-        user=authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request,user)
-            nome=user.username
-            messages.success(request, '<h1>Buongiorno '+nome+'!</h1>')
+# def entra(request):
+#     if request.method=='POST':
+#         username=request.POST['username']
+#         password=request.POST['password']
+#         user=authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request,user)
+#             nome=user.username
+#             messages.success(request, '<h1>Buongiorno '+nome+'!</h1>')
                 
-            return redirect('home:home')
-        else:
-            messages.error(request, 'Non risultano utenti con queste credenziali, controlla di averle digitate bene')
-    return render(request, 'dipendenti/login.html')
+#             return redirect('home:home')
+#         else:
+#             messages.error(request, 'Non risultano utenti con queste credenziali, controlla di averle digitate bene')
+#     return render(request, 'dipendenti/login.html')
         
+def entra(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        try:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                nome = user.username
+                messages.success(request, f'<h1>Buongiorno {nome}!</h1>')
+                return redirect('home:home')
+            else:
+                messages.error(request, 'Non risultano utenti con queste credenziali, controlla di averle digitate bene')
+        except Exception as e:
+            logger.error(f"Errore durante l'autenticazione dell'utente {username}: {e}", exc_info=True)
+            messages.error(request, 'Si è verificato un errore durante il tentativo di accesso. Riprova più tardi.')
+            # Potresti scegliere di reindirizzare a una pagina di errore specifica qui
+            # return redirect('error_page')
+    return render(request, 'dipendenti/login.html')
 
 def aggiornadipendente(request,pk):
     dipen=get_object_or_404(Dipendente,pk=pk)
