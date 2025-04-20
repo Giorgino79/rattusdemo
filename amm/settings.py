@@ -48,8 +48,7 @@ INSTALLED_APPS = [
     'xhtml2pdf',
     'channels',
     'django.contrib.humanize',
-    'cloudinary',
-    'cloudinary_storage',
+    
     
     'home',
     'dipendenti',    
