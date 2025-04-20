@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Cassa{% endblock title %}
+
+{% block content %}
+
+<div class='jumbotron table-responsive text-center'>
+    <h3>Cassa</h3><p>Importi in Euro</p>
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th scope='col'>Numero Movimento</th>
+            <th scope='col'>Cassa</th>
+            <th scope='col'>Data</th>
+            <th scope='col'>Cliente</th>
+            <th scope='col'>Causale</th>
+            <th scope='col'>Dare</th>
+            <th scope='col'>Avere</th>
+            <th scope='col'>Totale Cassa</th>
+        </tr> 
+        </thead>
+        <tbody>
+        {% for r in cassa %}
+        <tr>
+            <td scope='col'>{{r.pk}}</td>
+            <td scope='col'>{{r.numero_cassa}}</td>
+            <td scope='col'>{{r.data|date:'d-m'}}</td>           
+            <td scope='col'>{% if r.servizio.azienda.ragioneSociale %}{{r.servizio.azienda.ragioneSociale}}{% elif r.servizio.privati.nome_cognome %}{% elif r.fatturapassiva%}Pagata Fattura:{{r.fatturapassiva.numero_fattura}}-{{r.fatturapassiva.fornitori.ragioneSociale}}{%elif r.fatturaattiva%}Incassata Fattura:{{r.fatturaattiva.pk}}-{{r.fatturaattiva.azienda.ragioneSociale}}{% endif %}</td>
+            <td scope='col'>{% if r.servizio %}Incasso servizio: {{r.servizio.pk}}{% else %}{{r.causale}}{% endif %}</td>
+            <td scope='col'>{% if r.cassadare %}{{r.cassadare}}{% else %}--- {% endif %}</td>
+            <td scope='col'>{% if r.cassaavere %}{{r.cassaavere}}{% else %}--- {% endif %}</td>
+            <td scope='col'></td>
+        </tr>{% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th scope='col'>Totale</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{dare.dare}}</th>
+            <th>{{avere.avere}}</th>
+            <th>{{totale.tot}}</th>
+        </tr>
+        </tfoot>
+        </table>
+</div>
+
+{% endblock content %}

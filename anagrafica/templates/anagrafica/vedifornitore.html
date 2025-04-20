@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% url "anagrafica:elencofornitori" as torna %}
+
+{% block title %}{{ block.super }}Scheda Fornitore: {{q.ragioneSociale}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="col-sm-12 container jumbotron">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-header">{{c.ragioneSociale}}</h3>
+        <h6 class='card-header'>Codice Fornitore: {{c.id}} </h6>
+        <hr>
+        <p class='card-text text-center'>Indirizzo: <strong>{{c.capLegale}} - {{c.indSedeLegale}} - {{c.cittaLegale}} - ({{c.provincia}})</p>
+        <hr>
+        <p class='card-text text-center'>Partita Iva: <span><strong>{{c.PI}}</strong> - Codice Fiscale: <strong>{{c.CF}}</strong> - Codice Univoco: <strong>{{c.CU}}</p>
+        <hr>
+        <p class='card-text text-center'>Referente: <strong> {{c.referente}}</p>
+        <hr>
+        <p class='card-text text-center'>Telefono: <strong>{{c.telefono}}</p>
+        <hr>
+        <p class='card-text text-center'>Mail Direzione: <strong>{{c.pec}}</p>
+        <p class='card-text text-center'>Mail Direzione: <strong>{{c.mailDirezione}}</p>
+        <p class='card-text text-center'>Mail Amministrazione: <strong>{{c.mailAmministrazione}}</strong></p>
+        <p class='card-text text-center'>Mail Operativo 1: <strong>{{c.mailOperativo1}}</p>
+        <p class='card-text text-center'>Mail Operativo 2: <strong>{{c.mailOperativo2}}</p>
+        <p class='card-text text-center'>Mail Operativo 3: <strong>{{c.mailOperativo3}}</p>
+
+        <div class='card-footer'>
+        <p class='card-text text-center'>
+        <a href=''><button class='btn btn-primary'>Vedi Scheda Contabile</button></a>
+        <a href=''><button class='btn btn-primary'>Vedi Contratto</button></a>
+        <a href=''><button class='btn btn-primary'>Vedi? </button></a>
+        </p>
+        <p class='card-text text-center'>
+            <a href={% url "anagrafica:elencofornitori" %}><button class='btn btn-primary'>Torna all'elenco</button></a>
+        </p>
+      </div> 
+      
+      
+      
+     </div>
+
+
+
+{% endblock content %}

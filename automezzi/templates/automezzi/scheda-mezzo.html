@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% url "anagrafica:elencofornitori" as torna %}
+
+{% block title %}{{ block.super }}Scheda Mezzo: {{q.targa}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="col-sm-12 jumbotron container">
+  <div class='row'>
+    <div class="card col-5">
+       {% if c.foto %} <img src="{{ c.foto.url }}" class="card-img-top" alt="...">{% endif %}
+    </div>
+    
+      <div class="card col-7 ">
+        <h3 class="card-header">{{c.marca}} {{c.modello}} </h3>
+        <h6 class='card-header'>Targa: {{c.targa}} </h6>
+        <h6 class='card-header'>Numero: {{c.pk}} </h6>
+        <hr>
+        <p class='card-text '>Data Scadenza Revisione: <br>{{c.data_revisione}}</p>
+        <hr>
+        <p class='card-text '>Alimentazione: <br> {{c.alimentazione}}</p>
+        <hr>
+        <p class='card-text '>Data acquisto: <br> {{c.data_acquisto}} <br> Valore acquisto: <br>{{c.valore_acquisto}} €</p>
+        <hr>
+        <p class='card-text '>Note:<br> {{c.note}}</p>
+        <hr>
+        <p class='card-text '>{% if c.data_alienazione %} Data alienazione: {{c.data_alienazione}} {% else %} Mezzo operativo</p>{% endif %}
+        <p class='card-text '>
+            <a href={% url "automezzi:elenco-mezzi" %}><button class='btn btn-primary'>Torna all'elenco</button></a>
+        </p>
+      </div> 
+      
+      
+      
+     </div>
+     <div class='table-responsive'>
+      <table class="table" >
+        <h3>Prodotti in carico</h3>
+          <thead>
+            <tr>
+              <th scope="col">Prodotto</th>
+              <th scope="col">Quantità</th>
+            
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              
+              {% if c.prod1 %} <td >{{c.prod1}}</td>
+              <td>{{c.giac1}}</td>{% endif %}
+            </tr>
+              {% if c.prod2 %} <td >{{c.prod2}}</td>
+              <td>{{c.giac2}}</td>{% endif %}
+              <tr>
+              {% if c.prod3 %} <td >{{c.prod3}}</td>
+              <td>{{c.giac3}}</td>{% endif %}
+              </tr>
+              <tr>
+                {% if c.prod4 %} <td >{{c.prod4}}</td>
+              <td>{{c.giac4}}</td>{% endif %}
+              </tr>
+              <tr>
+                {% if c.prod5 %} <td >{{c.prod5}}</td>
+              <td>{{c.giac5}}</td>{% endif %}
+              </tr>
+              <tr>
+                {% if c.prod6 %} <td >{{c.prod6}}</td>
+              <td>{{c.giac6}}</td>{% endif %}
+              </tr>
+              
+                    
+            
+           
+            </div>
+          </div>    
+
+
+{% endblock content %}

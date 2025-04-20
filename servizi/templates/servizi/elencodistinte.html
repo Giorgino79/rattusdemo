@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Distinte da espletare{% endblock title %}
+
+
+{% block content %}
+<div class='container jumbotron table-responsive'>
+<h3>Distinte da Espletare</h3>
+
+<hr>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Distinta nr.</th>
+        <th scope="col">Data espletazione</th>
+        <th scope="col">Operatore</th>
+        <th scope="col">Mezzo</th>
+        <th scope='col'>Vedi Distinta</th>
+        <th scope='col'>Aggiorna Distinta</th>
+        <th scope='col'>Cancella Distinta</th>
+        
+      </tr>
+    </thead>
+    <tbody> 
+        {% for c in  el %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>        
+        <td>{{c.data|date:'d-m-y'}}</td>
+        <td>{{c.user.username}} </td>
+        <td> {{c.automezzo}}</td>
+        <td>{% if c.chiusura %}Distinta Chiusa{% else %}<a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i>{% endif %}</td>
+          <td><a href="{% url 'servizi:aggiornadistinta' c.pk %}"><i class='fa-solid fa-edit'></i></td>
+            <td>{% if c.chiusura %}Distinta Chiusa{% else %}<a href="{% url 'servizi:cancella' pk=c.pk%}"><i class='fa-solid fa-trash'></i>{% endif %}</td>
+
+      </tr>
+{% endfor %}
+      
+    </tbody>
+</table>
+</div>
+{% endblock content %}

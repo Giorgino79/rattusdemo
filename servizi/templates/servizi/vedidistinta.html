@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Distinta numero{{c.id}}{% endblock title %}{{ block.super }}Distinta numero
+
+
+{% block content %}
+
+<div class='jumbotron container table-responsive'>
+    <h3>Distinta nr.: {{c.id}} <br>del {{c.data}}</h3>
+    <br>
+    <h5> Operatore: {{c.user.username}}</h5>
+    <h6>Totale servizi: {{servizi}}</h6>
+    {% comment %} <p class='mb-2'><a href="{% url 'servizi:aggiornacaricomezzo' pk=c.automezzo.pk%}" class='btn btn-primary'>Aggiorna Prodotti</a></p> {% endcomment %}
+    <table class="table mt-3">
+        <thead class='text-center'>
+          <tr>
+            <th scope="col">Servizio nr.</th>
+            <th scope="col">Data espletazione</th>            
+            <th scope="col">Ora</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Tipo Servizio</th>
+            <th scope="col">Incasso al servizio</th>
+            <th scope="col">Importo Incassato</th>
+            <th scope="col">Avvia Navigazione</th>
+            <th scope='col'>Chiudi servizio</th>
+            <th scope='col'>Invia Report</th>
+          </tr>
+        </thead>{% for a in c.servizio.all %}
+        <tbody>
+            
+            <th scope="row">{{a.id}}</th>        
+            <td>{{a.data_espletazione|date:'d-m-y'}}</td>
+            <td> {{a.orario_inizio}}</td>
+            <td> {% if a.azienda %}{{a.azienda}}{% elif a.privati%} {{ a.privati }}{% else %}{{a.filiali}}{%endif%}</td>
+            <td> {{a.Tiposervizio}}</td>
+            <td>{% if a.prezzo %}{{a.prezzo}}{% else %}0 €{%endif%}</td>
+            <td>{% if a.importo_incassato %}{{a.importo_incassato}}{% else %}<em style='color:red'>{{totale}}</em>{%endif%}</td>
+            <td><a onclick="avviaNavigazione()"><i class="fa fa-map-marker" style='color:green'aria-hidden="true"></i></a></td>
+            <td>{% if a.espletato %}<i class="fa-solid fa-check"></i> {% else %}<a href="{% url 'servizi:chiudiservizio' pk=a.pk%}"><i class='fa fa-arrow-pointer'></div></a>{% endif %}</td>
+            <td><a href="{% url 'servizi:pdf' pk=a.pk%}"><i class='fa fa-file-pdf' style='color:red'></pdf></td>
+            
+        </tbody>{% endfor %}
+        <tfoot>
+          <tr>
+              <th scope='col'>Totale incassi:</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>{{sommaservizi.c}}€</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+          </tr>
+          </tfoot>
+    </table>
+    {% if  r %}
+    <table class="table mt-2">
+      <thead>
+        <tr>
+          <th scope="col">Recupero nr.</th>
+          <th scope="col">Data </th>            
+          <th scope="col">Cliente</th>
+          <th scope="col">Importo da incassare</th>
+          <th scope='col'>Note</th>
+          <th scope='col'>Chiudi recupero</th>
+        </tr>
+      </thead>{% for a in r %}
+      <tbody>
+          
+          <th scope="row">{{a.id}}</th>        
+          <td>{{a.data|date:'d-m-y'}}</td>
+          <td> {% if a.servizio.azienda.ragioneSociale %}{{a.servizio.azienda.ragioneSociale}}{% else %}{{a.servizio.privati.nome_cognome}}{% endif %}</td>
+          <td> {{a.importo_da_recuperare}}</td>
+          <td> {% if a.note %} {{a.note}}{% else %}---{% endif %}</td>
+          <td>{% if a.chiuso %}Recupero Chiuso {% else %}<a href="{% url 'servizi:chiudirecupero' a.pk %}"><i class='fa-solid fa-arrow-pointer'></i></button>{% endif %}</td>
+          
+             {% endfor %}       
+      </tbody>
+      <tfoot>
+        <tr>
+            <th scope='col'>Totale recuperi:</th>
+            <th></th>
+            
+            
+            <th>{{dare.dare}}</th>
+            <th>{{sommarecupero.c}} €</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </tfoot>
+  </table>
+{% endif %}
+    
+    {% if c.servizio_di_manutenzione %}
+    <div class='card text-center'>
+        <div class='card-header'>
+            <h4>Servizi di manutenzione previsti per oggi:</h4> 
+        </div>
+        <div class='card-body'>
+            <p>Oggi alle {{c.servizio_di_manutenzione.ora}}</p>
+            <p>presso {{c.servizio_di_manutenzione.fornitore.ragioneSociale}}</p>
+            <p> {{c.servizio_di_manutenzione.fornitore.indSedeLegale}}</p>
+            <p>{{c.servizio_di_manutenzione.fornitore.cittaLegale}}</p>
+            <p>{{c.servizio_di_manutenzione.fornitore.telefono}}</p>
+            <hr>
+            <h6>Lavoro da effettuare</h6>
+            <p>{{c.servizio_di_manutenzione.intervento}}</p>
+            <p>{{c.servizio_di_manutenzione.note}}</p>
+        </div>
+            
+    </div>
+    {% endif %}
+<div class='mt-2'>
+  {% if not c.chiusura %}<a href="{% url 'servizi:chiudidistinta' pk=c.pk%}" class='btn btn-primary' value='Chiudi Distinta'>Chiudi distinta</a>{% endif %}
+</div>
+
+<script>
+  let map;
+
+  function initMapsgo() {
+    map = new google.maps.Map(document.getElementById("google_map"), {
+      center: { lat: 41.9028, lng: 12.4964 }, // Coordinate di Roma (esempio)
+      zoom: 8, // Livello di zoom iniziale
+    });
+  }
+
+ 
+    function avviaNavigazione() {
+        const indirizzo = "{{ indirizzo }}";
+        const encodedIndirizzo = encodeURIComponent(indirizzo);
+        const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedIndirizzo}`;
+        window.open(googleMapsUrl, '_blank'); // Apre Google Maps in una nuova scheda
+    }
+
+    // Funzione per mostrare la mappa (opzionale, se vuoi visualizzarla nella stessa pagina)
+    function initMap() {
+        const indirizzo = "{{ indirizzo }}";
+        const geocoder = new google.maps.Geocoder();
+        const mapDiv = document.getElementById('google_map');
+        let map;
+
+        geocoder.geocode({ 'address': indirizzo }, function(results, status) {
+            if (status === 'OK') {
+                map = new google.maps.Map(mapDiv, {
+                    center: results[0].geometry.location,
+                    zoom: 15 // Zoom predefinito
+                });
+                new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: "{{ c.azienda.ragioneSociale }}"
+                });
+            } else {
+                console.error('Geocode was not successful for the following reason: ' + status);
+                mapDiv.innerHTML = '<p>Impossibile visualizzare la mappa per questo indirizzo.</p>';
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+
+
+<div class='jumbotron container table-responsive'>
+<h3 >Servizi del mese del cliente {{azienda.ragioneSociale}}</h3>
+<h6>(i prezzi sono da intendersi al netto di IVA)</h6>
+<div class='mb-2'>
+<table class="table">
+    <thead >
+      <tr>
+        <th scope="col">Servizio nr.</th>
+        <th scope="col">Data</th>
+        <th scope="col">Tipo Servizio</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Filiale</th>
+        <th scope="col">Prezzo</th>
+        
+
+      </tr>
+    </thead>
+    <tbody> 
+        {% for c in  servizio %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>
+        <th>{{c.data_espletazione|date:'d-m-y'}}</th>
+        <th>{{c.Tiposervizio}}</th>
+        
+        <th> {% if c.azienda %} {{c.azienda}} {% else %} {{c.privati}} {% endif %}</th>
+        <th> {% if c.filiali %} {{c.filiali}}{% else %}---{% endif %}</th>
+        <th> {% if c.prezzo %} {{c.prezzo}} {% else %} --- {% endif %}</th>
+        
+            {% endfor %}
+      </tr>
+     
+
+      
+    </tbody>
+</table>
+</div></div>

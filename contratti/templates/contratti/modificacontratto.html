@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Modifica Contratto{% endblock title %}
+
+{% block content %}
+
+
+<div class='container jumbotron container'>
+    <h3 class='text-center'>Modifica Contratto</h3>
+    <hr>
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type='submit' class='btn btn-primary' value='Conferma'>
+    </form>
+</div>
+
+
+{% endblock content %}

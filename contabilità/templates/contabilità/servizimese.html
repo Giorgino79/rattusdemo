@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Seleziona servizi del mese per cliente{% endblock title %}
+{% block content %}
+<div class='container jumbotron'>
+    <h3 class='text-center'>Estrai file exel dei servizi per cliente o ordini per fornitore</h3>
+    <h6 class='text-center'>Modifica il file a tuo piacimento e poi salvalo in pdf per allegarlo alla fattura</h6>
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class='btn btn-primary' type='submit' value='Estrai'>
+    </form>
+</div>
+<script>
+  
+    $("#id_cliente").select2();
+    $("#id_ordini_fornitore").select2();
+</script>
+
+{% endblock content %}

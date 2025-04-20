@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Homepage{% endblock title %}
+{% block content %}
+
+
+<div class='container jumbotron table-responsive text-center'>
+
+
+    <!--profilo-->
+    {% if giornata %}
+        <a class='btn btn-warning text-center'href="{% url 'dipendenti:profilo' username=user.username %}">Al lavoro!</a><br>
+    {% else %}
+        <a class='btn btn-warning text-center'href="{% url 'dipendenti:nuovagiornata' %}">Timbra</a><br>
+    {% endif %}
+    
+    <!--chat-->
+    <a class='btn btn-success text-center mt-2'href="{% url 'home:chat'%}">Messaggi</a><br>
+  
+    <!--Loghi-->
+    <img class='mt-2'src="{% static 'logonuovo.jpeg'%}"><br>
+    <h3 style='color:#cca8e9; text-align:center;'>Rattus Demo</h3>
+   
+</div>
+
+
+
+{% endblock content %}
+

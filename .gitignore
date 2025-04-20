@@ -1,0 +1,39 @@
+# Byte-compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# OS or Editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/  # Se usi VS Code
+.idea/    # Se usi IntelliJ/PyCharm
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+media/  # Se non vuoi tracciare i file media
+
+# Environment variables
+.env
+
+# Packages
+*.egg
+*.egg-info
+dist/
+build/
+
+# Temp files
+*.tmp
+tmp/
+
+# Logs
+*.log

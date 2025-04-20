@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Elimina distinta nr. {{o.pk}}{% endblock title %}
+
+
+{% block content %}
+<div class='container jumbotron'>
+    <form method='POST'>
+        {% csrf_token %}
+        Sicuro di voler cancallare la distinta:<br>
+        {{o}}<br>
+        <input type='submit' class='btn btn-danger' value='Elimina'>
+    </form>
+</div>
+
+{% endblock content %}

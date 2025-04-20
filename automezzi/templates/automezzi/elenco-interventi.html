@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% url 'anagrafica:vedicodice' as codice %}
+{% block title %} {{ block.super }} Elenco Interventi{% endblock title %}
+
+
+{% block content %}
+
+<h3 class='text-center'>Elenco Interventi</h3>
+
+<hr>
+<div class='container jumbotron'>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Targa</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Modello</th>
+        <th scope="col">Data Intervento</th>
+        <th scope="col">Tipo Intervento</th>
+        <th scope="col">Costo Intervento</th>
+        <th scope="col">Vedi Scheda Intervento</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for c in  interventi %} 
+      <tr>
+        <th scope="row">{{c.mezzo.targa}}</th>
+        <td>{{c.mezzo.marca}}</td>
+        <td>{{c.mezzo.modello}}</td>
+        <td>{{c.data_intervento}}</td>
+        <td>{{c.intervento}}</td>
+        <td>{{c.costo_intervento}}</td>
+        <td><a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></td>
+        {% endfor %}
+      </tr>
+      <tr>
+</div>
+</div>
+
+
+
+{% endblock content %}

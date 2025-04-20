@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Prodotti in Magazzino{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 class='text-center'>Giacenze magazzino</h3>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th  scope="col">Numero Articolo</th>
+        <th  scope="col">Nome Articolo</th>
+        <th  scope="col">Fornitore</th>
+        <th  scope="col">Giacenza</th>        
+        
+        
+      </tr>
+    </thead>
+    <tbody> {% for c in  mag %}
+      <tr>
+        
+        <th scope="row">{{c.prodotto.pk}}</th>
+        <td >{{c.prodotto.nome_prodotto}}</td>
+        <td >{{c.prodotto.fornitore.ragioneSociale}}</td>
+        <td >{{c.giacenza}}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

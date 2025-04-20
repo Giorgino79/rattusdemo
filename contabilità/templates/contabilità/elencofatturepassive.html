@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} Elenco Fatture Passive{% endblock title %}
+
+{% block content %}
+
+<div class='jumbotron table-responsive text-center'>
+    <h3>Elenco Fatture passive</h3>
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th scope='col'>Data Fattura</th> 
+            <th scope='col'>Numero Fattura</th>
+            <th scope='col'>Fornitore</th>
+            <th scope='col'>Importo</th>
+            <th scope='col'>Pagata</th>
+            <th scope='col'>Scadenza</th>
+            <th scope='col'>Vedi pdf</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in fatture %}
+        <tr>
+            <td scope='col'>{{r.data_fattura|date:'d-m-y'}}</td>
+            <td scope='col'>{{r.numero_fattura}}</td>
+            <td scope='col'>{{r.fornitori.ragioneSociale}}</td>
+            <td scope='col'>{{r.totale}}</td>
+            <td scope='col'>{% if r.da_pagare %}da saldare {% else %}pagata{% endif %}</td>
+            <td scope='col'>{{r.data_pagamento|date:'d-m-y'}}</td>
+            <td scope='col'> {{r.pdf}} <i class='fa fa-file-pdf' style='color:red'></i></a></td>
+        </tr>{% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% endblock content %}

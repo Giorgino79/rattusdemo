@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Contratti in Essere{% endblock title %}
+
+
+{% block content %}
+<div class='container'>
+<div class='row'>
+  <div class='jumbotron'>
+<h3 class='text-center'>Contratti in essere</h3>
+
+<hr>
+<div class='table-responsive'>
+{% if messages %}
+<ul class="messages">
+       {% for message in messages %}
+             <li style='color:green;font-size:35px' {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+</ul>{% endif %}
+<table class="table">
+    <thead class='text-center'>
+      <tr>
+        <th scope="col">Contratto nr.</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Nome contratto</th>
+        <th scope="col">Data proposta</th>
+        <th scope="col">Inizio validità</th>
+        <th scope="col">Scadenza</th>
+        <th scope='col'>Vedi Contratto</th>
+      </tr>
+    </thead>
+    <tbody class='text-center'> 
+      
+        {% for c in  contratti %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>   
+        <th>{{c.anagrafica.ragioneSociale}}</th>                
+        <th>{{c.nome_contratto}}</th>                
+        <td>{{c.data|date:'d-m-y'}}</td>
+        <td>{% if c.inizio_validità %}{{c.inizio_validità|date:'d-m-y'}}{% else %}---{% endif %}</td>
+        <td> {% if c.scadenza_contratto %}{{c.scadenza_contratto|date:'d-m-y'}}{% else %}---{% endif %}</td>
+        <td><a href='{% url "contratti:vedicontratti" pk=c.id %}'><i class='fa-solid fa-arrow-pointer' ></i></td>
+        {% endfor %}
+      </tr>
+     
+
+      
+    </tbody>
+</table>
+</div>
+
+</div></div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}   {{ block.super }}Chiudi Servizio{% endblock title %}
+
+{% block content %} 
+<div class='container jumbotron'>
+    <h3> Chiusura del Servizio </h3>
+    <form method='POST'>{% csrf_token %}
+
+        {% if prezzo %} <p style='color:red;font-size:30px'>Importo da incassare: {{prezzo}} €  {% else %}nulla da incassare {% endif %}</p>
+        
+        
+        {{form|crispy}}   
+        
+        <input type='submit' class='btn btn-primary' value='Chiudi Servizio'>
+        
+        
+    </form>
+</div>
+
+
+{% endblock content %}

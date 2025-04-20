@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Registra Fattura{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <h3 class='text-center'>Registra Fattura Fornitore</h3>
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type='submit' class='btn btn-primary' value='conferma'>
+    </form>
+</div>
+
+{% endblock content %}

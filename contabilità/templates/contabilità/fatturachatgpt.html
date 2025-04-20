@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fattura n. 562</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .header, .footer {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            max-width: 100px;
+        }
+        .details {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .totals {
+            width: 100%;
+            text-align: right;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="logo.png" alt="Logo Azienda"> <!-- Inserisci il logo -->
+        <h2>Fattura n. 562</h2>
+    </div>
+
+    <div class="details">
+        <div>
+            <strong>Fattura a:</strong><br>
+            <strong>[Nome dell'azienda del cliente]</strong><br>
+            [Indirizzo dell'azienda del cliente]<br>
+            P.IVA/C.F.: [Numero di partita IVA del cliente / Codice Fiscale]
+        </div>
+        <div>
+            <strong>Data fattura:</strong> 15/10/2021<br>
+            <strong>Data di scadenza:</strong> 29/10/2021
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descrizione</th>
+                <th>Quantità</th>
+                <th>Prezzo</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Il mio prodotto</td>
+                <td>2</td>
+                <td>58,00 €</td>
+                <td>116,00 €</td>
+            </tr>
+            <tr>
+                <td>Il mio servizio</td>
+                <td>1</td>
+                <td>120,00 €</td>
+                <td>120,00 €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <p><strong>Subtotal:</strong> 236,00 €</p>
+        <p><strong>IVA (22%):</strong> 51,92 €</p>
+        <p><strong>Totale:</strong> 287,92 €</p>
+    </div>
+
+    <div class="footer">
+        <strong>[Nome dell'Azienda]</strong><br>
+        P.IVA/C.F.: [Numero di partita IVA / Codice Fiscale]<br>
+        [Indirizzo]<br>
+        <strong>[Nome della banca]</strong><br>
+        Conto corrente (IBAN): [IBAN]<br>
+        SWIFT/BIC: [SWIFT/BIC]
+    </div>
+</div>
+
+</body>
+</html>

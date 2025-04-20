@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Distinte Chiuse{% endblock title %}
+
+
+{% block content %}
+<div class='container jumbotron table-responsive'>
+<h3>Elenco Distinte Chiuse</h3>
+
+<hr>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Distinta nr.</th>
+        <th scope="col">Data espletazione</th>
+        <th scope="col">Operatore</th>
+        <th scope="col">Mezzo</th>
+        <th scope='col'>Vedi Distinta</th>
+        
+      </tr>
+    </thead>
+    
+    <tbody> 
+        {% for c in  el %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>        
+        <td>{{c.data|date:'d-m-y'}}</td>
+        <td>{% if c.oper  %}{{c.oper.nome}}{% else %}---{% endif %} </td>
+        <td> {{c.automezzo}}</td>
+        <td><a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></td>
+
+            {% endfor %}
+      </tr>
+
+      
+    </tbody>
+</table>
+</div>
+{% endblock content %}

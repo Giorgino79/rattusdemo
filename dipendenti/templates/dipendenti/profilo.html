@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Profilo di {{user.username}}{% endblock title %}
+
+
+{% block content %} 
+
+<div class='container jumbotron text-center'>
+    {% if user.foto.dipendente %}
+    <img src="{{user.foto_dipendente.url}}" style='width:80px; height:80px' class="text-center card-img-top"><br>
+    {% endif %}
+    <h3 class='text-center'>Buongiorno {{user.username}}</h3>
+    {% if giornata %}
+        <a href="{% url 'dipendenti:aggiornagiornata' giornata.pk %}" class='btn btn-primary'>Giornata</a>
+        {% else %}
+            <a href="{% url 'dipendenti:nuovagiornata'%}" class='btn btn-primary'>Timbra</a>
+    {% endif %}
+    {% for dis in distinta %}
+        <a class='btn btn-primary text-center' href={% url 'servizi:vedidistinta' dis.pk%}>Distinta nr.{{dis.id}} - {{dis.data}}</a>
+    
+        {% endfor %}
+
+
+</div>
+
+
+{% endblock content %}
+
+AIzaSyC4-qqPBZVvaJmPCTw9uTM2Ai90pUceI5I

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Elenco Recuperi{% endblock title %}
+
+{% block content %}
+
+<div class='jumbotron table-responsive text-center'>
+    <h3>Elenco crediti da recuperare</h3>
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th scope='col'>Numero Recupero</th> 
+            <th scope='col'>Data Creazione Recupero</th>
+            <th scope='col'>Numero Servizio</th>
+            <th scope='col'>Cliente</th>
+            <th scope='col'>Incasso originario</th>
+            <th scope='col'>Incasso effettuato</th>
+            <th scope='col'>Differenza da recuperare</th>
+            <th scope='col'>Data recupero</th>
+            <th scope='col'>Vedi recupero</th>
+            <th scope='col'>Aggiorna recupero</th>
+            <th scope='col'>Chiuso</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in rec  %}
+        <tr>
+            <td scope='col'>{{r.id}}</td>
+            <td scope='col'>{{r.data_creazione|date:'d-m-y'}}</td>
+            <td scope='col'>{{r.servizio.pk}}</td>
+            <td scope='col'>{% if r.servizio.azienda.ragioneSociale %}{{r.servizio.azienda.ragioneSociale}}{% else %}{{r.servizio.privati.nome_cognome}}{% endif %}</td>
+            <td scope='col'>{{r.servizio.prezzo}}</td>
+            <td scope='col'>{{r.servizio.importo_incassato}}</td>
+            <td scope='col'>{{r.importo_da_recuperare}}</td>
+            <td scope='col'>{{r.data|date:'d-m-y'}}</td>
+            <td><a href='{{r.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></td>          
+            <td scope='col'><a href="{% url 'contabilità:aggiornarecupero' pk=r.pk %}"><i class='fa fa-edit' style='color:blue'></i></a></td>
+            <td scope='col'>{% if r.chiuso %}Recuperato {% else %}<em style='color:red'>Da recuperare</em>{% endif %}</td>
+        </tr>{% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% endblock content %}

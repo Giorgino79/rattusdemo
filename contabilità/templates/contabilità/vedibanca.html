@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Banca: {{banca.nome}}{% endblock title %}
+{% block content %}
+<div class='jumbotron table-responsive text-center container'>
+    <h3>{{nome.nome}}</h3><p>Importi in Euro</p>
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th>Id Movimento</th> 
+            <th>Data</th>
+            <th>Causale</th>
+            <th>Dare</th>
+            <th>Avere</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in banca %}
+        <tr>
+            <td>{{r.pk}}</td>
+            <td>{{r.data}}</td>           
+            <td>{{r.casuale}}</td>
+            <td>{{r.dare}}</td>
+            <td>{{r.avere}}</td>
+        </tr>{% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope='col'>Totale</th>
+                <th><th>
+                <th>{{dare.inc}}</th>
+                <th>{{avere.inc}}</th>
+            </tr>
+            </tfoot>
+            </table>
+        
+        </table>
+</div>
+
+{% endblock content %}

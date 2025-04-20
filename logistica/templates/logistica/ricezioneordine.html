@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Ricevimento ordine{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <h3 class='text-center'>
+        
+        Ricevimento ordine numero: {{ordine.pk}}<br>
+        Data ordine: {{ordine.data_ordine}}<br>
+        Fornitore: {{ordine.prodotto.fornitore.ragioneSociale}}<br>
+        Prodotto ordinato: {{ordine.prodotto.nome_prodotto}}<br>
+        Articoli ordinati: {{ordine.numero_articoli}}
+    </h3>
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class='btn btn-primary' type='submit' value='Conferma'>
+    </form>
+</div>
+
+{% endblock content %}

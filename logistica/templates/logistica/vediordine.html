@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Ordine nr: {{c.id}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="container col-sm-12 mt-5 jumbotron">
+    <div class="card">
+
+        <div class='card-title text-center'>         
+          {% comment %} <a href="{% url 'logistica:elencoordini' %}"><button class='btn btn-warning mt-2'><i class='fa-solid fa-circle-arrow-left'></i></button></a> {% endcomment %}
+            <a  href="{% url 'logistica:pdf-ordine' c.pk %}">          
+              <button type="button" class="btn btn-success mt-2" ><i class='fa-solid fa-print'></i>
+              </button>
+            </a>
+        </div> 
+
+        <div class='card-header'>
+          <h3>Numero Ordine: {{c.id}}
+            <br>
+            Nome Prodotto: {{c.prodotto.nome_prodotto}}
+          </h3>  
+          <p class=''>{% if c.ricevuto %}Ordine ricevuto il {{c.data_ricezione|date:'d-m-y'}} {% else %} Non ancora ricevuto{% endif %}</p>
+        </div>
+          
+      <div class="card-body">
+        <p class='card-text '>Data ordine:{{c.data_ordine|date:'d-m-Y'}} </p>
+        <hr>
+        <p class='card-text '>Fornitore:{{c.prodotto.fornitore}} </p>
+        <hr>
+        <p class='card-text '>Articoli ordinati:{{c.numero_articoli}} </p>
+        <p class='card-text '> {% if c.ricevuto  %} Articoli ricevuti:{{c.numero_articoli}} {% else %} {% endif %}</p>
+        <hr>
+        <p class='card-text '>Indirizzo di consegna richiesto: {% if c.indirizzo_consegna %}{{c.indirizzo_consegna}} {% else %} Nostro Magazzino {%endif %}</p>
+        <hr>
+        
+        <p class='card-text '>Prezzo per Articolo:{{c.prezzo_singolo_articolo}} € </p>
+        <p class='card-text '>{% if c.ricevuto %} Totale ordine:{{c.importo_ordine}} € {% else %} {% endif %} </p>       
+        <hr>
+        <p class='card-text '>Note:{% if c.note %}{{c.note}}{% else %}Nessuna Nota registrata{% endif %}</p>
+        <hr>
+        <p class='card-text '>Pagamento: {{c.pagamento}}  </p>
+       
+      </div> 
+  </div>
+</div>
+
+    
+
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% url "anagrafica:elencofornitori" as torna %}
+
+{% block title %}{{ block.super }}Scheda Intervento: {{q.mezzo.targa}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="col-sm-12 jumbotron">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-header">{{c.mezzo.marca}} {{c.mezzo.modello}} </h3>
+        <h6 class='card-header'>Targa: {{c.mezzo.targa}} </h6>
+        <hr>
+        <p class='card-text text-center'>Data Intervento: <br>{{c.data_intervento}}</p>
+        <hr>
+        <p class='card-text text-center'>Costo Intervento: <br> {{c.costo_intervento}} €</p>
+        <hr>
+        <p class='card-text text-center'>Note:<br> {{c.note}}</p>
+        <hr>
+        
+        <p class='card-text text-center'>
+            <a href={% url "automezzi:elenco-interventi" %}><button class='btn btn-primary'>Torna all'elenco</button></a>
+        </p>
+      </div> 
+      
+      
+      
+     </div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Aggiorna Prodotti Mezzo{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <form method='POST'>
+        {% csrf_token %}
+        <h3>Aggiorna Prodotti - targa {{mezzo.targa}}</h3>
+        {% comment %} <h4>Incassi totale del giorno: {{importo.totale}}</h4> {% endcomment %}
+        {{form|crispy}}
+        <input type='submit' value='Conferma' class='btn btn-primary'>
+    </form>
+</div>
+
+{% endblock content %}

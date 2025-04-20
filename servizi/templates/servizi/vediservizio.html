@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}Servizio nr: {{c.id}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="col-sm-12 jumbotron container">
+  <div class='card-title'>         
+    {% if c.espletato %}Servizio chiuso, non più modificabile
+    {% elif c.azienda %}             
+    <a href="{% url 'servizi:aggservizioazienda' c.pk %}"><button class='btn btn-success mb-2'><i class='fa-solid fa-edit'></i></button></a>        
+    {% else %}
+    <a href="{% url 'servizi:aggservizioprivati' c.pk %}"><button class='btn btn-success mb-2'><i class='fa-solid fa-edit'></i></button></a>        
+    {% endif %} 
+  </div>
+    <div class="card">
+      <div class='card-header'>
+        <h5 class="">Servizio nr. {{c.id}}<br>
+        {% if c.azienda %}{{c.azienda.ragioneSociale}}{% else %}{{c.privati.nome_cognome}}{% endif %}</h3>
+        </div>
+      
+       <div class="card-body">
+          <div class='row'>
+            <div class='card col-6'>
+              <p class='text-center'><b>Operativo</b></p>
+
+              <p class='card'>Da esplatare il: {{c.data_espletazione|date:'d-M-y'}}</p>
+              
+              <p class='card'>Luogo: 
+               
+                {% if c.azienda.indSedeLegale %}{{c.azienda.indSedeLegale}} - {{c.azienda.cittaLegale}}
+                {% elif c.filiali %}{{c.filiali.indFiliale}} - {{c.filiali.cittaFiliale}}
+                {% elif c.azienda.altro_luogo %}{{c.azienda.altro_luogo}}
+                {% else %}{{c.privati.indirizzo}}
+                {% endif %}</p>
+              <p class='card'>Servizio: {{c.Tiposervizio}}</p>
+              <p class='card'>Note:<br>{% if c.note %}{{c.note}}{% else %}Nessuna nota inserita{% endif %} </p>
+              <p class='card'>{% if c.espletato %}Servizio effettuato il {{c.data_espletazione|date:'d-M-y'}} <br><span>Vedi report {% if a.pdf %}<a href="{{c.pdf.url}}"><i style='color:red' class='fa fa-file-pdf'></i></a>{% else %}Nessun pdf ancora disponibile{% endif %} {% else %} Da esplatare il {{c.data_espletazione|date:'d-M-y'}}{% endif %}</span></p>
+            </div>
+            <div class='card col-5 mx-2'>
+              <p class='text-center'><b>Contabilità</b></p>
+              
+              <p class='card'>Importo del Servizio:{% if c.prezzo %}{{c.prezzo}} € {% elif c.contratto %} Servizio regolato dal contratto nr: {{c.contratto.id}} - {{c.contratto.nome_contratto}}{% endif %}</p>
+              
+              <p class='card'>Incasso al Servizio: {% if c.incasso is True %}{{c.prezzo}} € {% else %}Nessun incasso da esigere{% endif %}</p>
+
+              
+              <p class='card'>Importo Incassato {% if c.importo_incassato %}{{c.importo_incassato}}{% else %}Nessun incasso effettuato{% endif %}</p>
+          </div>
+        </div>
+        <div class='card-footer mt-2 text-center'>
+          <p class='card'>
+            <a href="{% url 'servizi:elencoservizi' %}"><button class='btn btn-primary'>Torna all'elenco dei servizi</button></a>
+          </p>
+        </div>
+      
+     
+        <button onclick="avviaNavigazione()">Avvia Navigazione con Google Maps</button>
+
+
+        <script>
+          let map;
+        
+          function initMapsgo() {
+            map = new google.maps.Map(document.getElementById("google_map"), {
+              center: { lat: 41.9028, lng: 12.4964 }, // Coordinate di Roma (esempio)
+              zoom: 8, // Livello di zoom iniziale
+            });
+          }
+
+         
+            function avviaNavigazione() {
+                const indirizzo = "{{indirizzo}}";
+                const encodedIndirizzo = encodeURIComponent(indirizzo);
+                const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedIndirizzo}`;
+                window.open(googleMapsUrl, '_blank'); // Apre Google Maps in una nuova scheda
+            }
+    
+            // Funzione per mostrare la mappa (opzionale, se vuoi visualizzarla nella stessa pagina)
+            function initMap() {
+                const indirizzo = "{{ indirizzo }}";
+                const geocoder = new google.maps.Geocoder();
+                const mapDiv = document.getElementById('google_map');
+                let map;
+    
+                geocoder.geocode({ 'address': indirizzo }, function(results, status) {
+                    if (status === 'OK') {
+                        map = new google.maps.Map(mapDiv, {
+                            center: results[0].geometry.location,
+                            zoom: 15 // Zoom predefinito
+                        });
+                        new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location,
+                            title: "{{ c.azienda.ragioneSociale }}"
+                        });
+                    } else {
+                        console.error('Geocode was not successful for the following reason: ' + status);
+                        mapDiv.innerHTML = '<p>Impossibile visualizzare la mappa per questo indirizzo.</p>';
+                    }
+                });
+            }
+       
+        </script>
+{% endblock content %}

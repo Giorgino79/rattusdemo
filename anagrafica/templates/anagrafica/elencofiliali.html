@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% url 'anagrafica:vedicodice' as codice %}
+{% block title %} {{ block.super }} Elenco Filiali{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 class='text-center'>Elenco Filiali Clienti</h3>
+
+
+<table class="table text-center table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Cliente</th>
+        <th scope="col">Appellativo Filiale</th>
+        <th scope="col">Città</th>
+        <th scope="col">Referente</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Email</th>
+        {% if perms.anagrafica.can_add_azienda %}<th scope="col">Aggiorna Scheda Anagrafica</th>{% endif %}
+        
+      </tr>
+    </thead>
+    <tbody>{% for c in  filiali %}
+      <tr>
+        
+        <th scope="row">{{c.anaFiliale.ragioneSociale}}</th>
+        <td>{{c.nomeFiliale}}</td>
+        <td>{{c.cittaFiliale}}</td>
+        <td>{% if c.referenteFiliale %}{{c.referenteFiliale}}{% else %}---{% endif %}</td>
+        <td>{% if c.telFiliale %}{{c.telFiliale}}{% else %}---{% endif %}</td>
+        <td>{{c.mailFiliale}}</td>
+        {% if perms.anagrafica.can_add_azienda %}<td><a href="{% url 'anagrafica:aggiornafiliale' pk=c.pk %}"><i class='fas fa-edit'></i></td>{% endif %}
+
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+ 
+
+</div>
+
+{% endblock content %}

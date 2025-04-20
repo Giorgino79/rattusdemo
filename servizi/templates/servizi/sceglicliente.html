@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Scegli cliente{% endblock title %}
+
+
+{% block content %}
+
+<div class='container jumbotron '>
+    <h3>Scegli cliente presso cui effettuare il servizio</h3>
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type='submit' class='btn btn-primary' value='Conferma'>
+    </form>
+</div>
+{% endblock content %}

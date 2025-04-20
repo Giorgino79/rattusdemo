@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+
+{% block title %}{{ block.super }}Scheda Privato: {{q.nome_cognome}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="col-sm-12 jumbotron container ">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-header">{{c.nome_cognome}}</h3>
+        <h6 class='card-header'>Codice Cliente: {{c.id}} </h6>
+        <hr>
+        <p class='card-text text-center'>Telefono:<br>{{c.telefono_cliente}}</p>
+        <hr>
+        <p class='card-text text-center'>Indirizzo: <br>{{c.indirizzo}} - {{c.cap}} - {{c.citta}} - ({{c.provincia}}) </p>
+        <hr>
+        <p class='card-text text-center'>Moglie: <br>{{c.parente1}}  <br>Telefono: <br>{{c.telefono_parente1}}</strong> </p>
+        <hr>
+        <p class='card-text text-center'>Parente: <br> {{c.parente2}}<br> Telefono: <br>{{c.telefono_parente2}}</p>
+        <hr>
+        <p class='card-text text-center'>Mail:<br> {{c.email}}</p>
+        <hr>
+        <p class='card-text text-center'>Note:<br> {{c.note}}</p>
+        <hr>
+
+        <div class='card-footer'>
+        <p class='card-text text-center'>
+        <a href=''><button class='btn btn-primary'>Vedi Scheda Contabile</button></a>
+        <a href=''><button class='btn btn-primary'>Vedi? </button></a>
+        </p>
+        <p class='card-text text-center'>
+            <a href={% url "anagrafica:elencoprivati" %}><button class='btn btn-primary'>Torna all'elenco</button></a>
+        </p>
+      </div> 
+      <hr>
+      <div class='responsive'>
+        <h3 class='text-center'>Installazioni presso il cliente</h3>
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">Data Installazione</th>
+              <th scope="col">Prodotto installato</th>
+              <th scope="col">Quantità prodotti</th>
+              
+              
+            </tr>
+          </thead>
+          <tbody> 
+            <tr>  {% for c in insta  %}
+              <th scope="row">{{c.data_installazione}}</th>
+              <td>{{c.prodotto.nome_prodotto}}</td>
+              <td>{{c.quantità}}</td>
+              
+            </tr> {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      
+     </div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} 
+    {{ block.super }} 
+    Installazione cliente {% if insta.azienda %}{{insta.azienda.ragioneSociale}}{% else %}{{insta.privato.nome_cognome}}{% endif %}
+{% endblock title %}
+
+
+{% block content %}
+<div class='container jumbotron table-responsive'>
+<h3 class='text-center '>Installazione presso il cliente: {% if insta.azienda %}{{insta.azienda.ragioneSociale}}{% else %}{{insta.privato.nome_cognome}}{% endif %} </h3>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Data Installazione</th>
+        <th scope="col">Cliente</th>        
+        <th scope="col">Filiale</th>        
+        <th scope="col">Postazioni Fornite</th>
+        <th scope="col">Quantità Fornite</th>
+        <th scope='col'>Vedi pdf installazione</th>
+        <th scope='col'>Invia pdf installazione</th>
+        <th scope='col'>Aggiorna Installazione</th>
+        
+      </tr>
+    </thead>
+    <tbody> {% for insta in insta %}
+      <tr>    
+        <td>{{insta.data_installazione}}</td>
+        <td>{% if insta.azienda %}{{insta.azienda.ragioneSociale}}{% else %}{{insta.privato.nome_cognome}}{% endif %}</td>
+        <td>{% if filiale %}{{insta.filiale.nome}}{% else %}Sede Cliente{% endif %}</td>
+        <td>{{insta.prodotto}}</td>
+        <td>{{insta.quantità}}</td>
+        <td><a href="{% url 'logistica:reportinstallazione' insta.pk %}" ><i class='fa-solid fa-file-pdf'></i></td>
+        <td><a href="{% url 'logistica:invioreportinstallazione' insta.pk %}" ><i class='fa-solid fa-envelope'></i></td>
+        <td><a href="{% url 'logistica:agginstall' insta.pk %}" ><i class='fa-solid fa-arrow-pointer'></i></td>
+              {% endfor %}
+      </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

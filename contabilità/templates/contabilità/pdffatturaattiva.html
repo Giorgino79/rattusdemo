@@ -1,0 +1,139 @@
+<head>
+    <title>Ordine nr. {{c.pk}}</title>
+<head>
+{% load static %}
+<style>
+    
+    .destinatario{
+        color:blue;
+        text-align:right;
+    }
+    .intestazione{
+        border:2px solid lightblue; 
+        text-align:right;
+        display:grid;
+
+        grid-template-columns: auto;
+        gap:50px
+    }
+    .intestazione > div{
+        background-color:#f5f5f5;
+        border: 5px solid #2f64a3;
+        padding: 20px;
+        font-size: 10px;
+        text-align: left;
+        border-radius:50px;
+    }
+    .scatola{
+        border: 2px solid #f5f5f5;
+    }
+
+    .corpo{
+        width:500px;
+        height:1500px;
+        background:white;
+    }
+    .box{
+        padding:100px;
+        height:2000px;
+        width:800px;
+        background-color:#f5f5f5;
+        padding:30px;
+        border:5px solid #2f64a3;
+        
+
+    }
+
+    .container {
+        display: grid;
+        grid-template-areas:
+          "header header"
+          "menu content"
+          "footer footer";
+        grid-template-columns: 1fr 3fr;
+        gap: 5px;
+        background-color: #2196F3;
+        padding: 5px;
+      }
+      .container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+      }
+      .container > div.header {
+        grid-area: header;
+        text-align: center;
+      }
+      .container > div.menu {
+        grid-area: menu;
+      }
+      .container > div.content {
+        grid-area: content;
+      }
+      .container > div.footer {
+        grid-area: footer;
+      }
+      </style>
+     
+<div class='scatola'>
+
+        <div class='intestazione'>
+            <div><h1 ><img src='static/logo2.png' style='width:auto;height:70px;margin-right:25px;'><br>
+            giiSoftware<br>Via Tione degli Abruzzi, 19 <br> 00132 - Roma</h1></div>
+        </div>.
+
+
+        <div class='destinatario'>            
+            <strong>Destinatario Fattura:</strong><br>
+            {{c.azienda.ragioneSociale}}<br>
+            {{c.azienda.indSedeLegale}}<br>
+            00{{c.azienda.capLegale}} - {{c.azienda.cittaLegale}} - {{c.azienda.provincia}}<br>
+            Partita Iva: {{c.azienda.PI}}<br>
+            Codice Fiscale: {{c.azienda.CF}}<br>
+            Codice Univoco: {{c.azienda.CU}}    <br>
+        </div>
+
+
+
+    
+<div class='box' >
+   
+        <h2>Numero Fattura: {{c.id}}<br>
+        
+        Data Fattura:{{c.data_fattura|date:'d-m-Y'}}<br>
+        
+        Data Scadenza:{{c.data_scadenza|date:'d-m-Y'}} </h2>
+    
+</div>
+<div class='box'>
+    <h1>Descrizione:<br>
+    Vendita software Rattus</h1>
+</div>
+    <div class='row'>
+        <p class='col-4'>
+            <h1>Imponibile: {{c.imponibile}}</h1>
+        </p>
+        <p class='col-4'>
+           <h1> Iva: {{c.importoiva}} €</h1>
+        </p>
+        <p class='col-4'>
+            <h1>Totale:{{c.totale}}</h1>
+        </p>
+    </div>
+
+</div>
+
+
+  
+  <h1>CSS Grid Layout</h1>
+  
+  <p>The Grid Layout Module offers a grid-based layout system, with rows and columns.</p>
+  <p>The Grid Layout Module makes it easy to design complex and responsive web pages without using floats and positioning:</p>
+  
+  <div class="container">
+    <div class="header"><h2>My Header</h2></div>
+    <div class="menu"><a href="#">Link 1</a><br><a href="#">Link 2</a><br><a href="#">Link 3</a></div>
+    <div class="content"><h3>Lorem Ipsum</h3><p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ridiculus sit nisl laoreet facilisis aliquet. Potenti dignissim litora eget montes rhoncus sapien neque urna. Cursus libero sapien integer magnis ligula lobortis quam ut.</p></div>
+    <div class="footer"><h4>Footer</h4></div>
+  </div>
+  
+  

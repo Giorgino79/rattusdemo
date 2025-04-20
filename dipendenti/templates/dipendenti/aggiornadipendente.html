@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Aggiorna Dipendente {{dipen.first_name}}{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <h1 class='text-center'>Aggiorna Dipendente  {{dipen.first_name}}</h1>
+
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type='submit' class='btn btn-primary' value='Conferma'>
+    </form>
+</div>
+
+{% endblock content %}

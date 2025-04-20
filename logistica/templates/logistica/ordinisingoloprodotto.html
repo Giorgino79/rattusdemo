@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Ordini di Acquisto{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 class='text-center'>Ordini in essere per il prodotto {{prodotto.nome_prodotto}}</h3>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th  scope="col">Numero ordine</th>
+        <th  scope="col">Data Ordine</th>
+        <th  scope="col">Nome Prodotto</th>
+        <th  scope="col">Fornitore</th>
+        <th  scope="col">Pezzi richiesti</th>        
+        <th  scope="col">Confezioni richieste</th>
+        <th  scope='col'>Prezzo concordato</th>
+        <th  scope='col'>Ricevuto</th>
+        <th  scope='col'>Totale Ordine</th>
+        <th  scope='col'>Vedi ordine</th>
+        <th  scope='col'>Invia mail ordine</th>
+        <th  scope='col'>Ricevi Ordine</th>
+        
+      </tr>
+    </thead>
+    <tbody> {% for c in  ordini %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>
+        <td >{{c.data_ordine|date:'d-m-y'}}</td>
+        <td >{{c.prodotto.nome_prodotto}}</td>
+        <td >{{c.prodotto.fornitore.ragioneSociale}}</td>
+        <td >{% if c.pezzi %}{{c.pezzi}}{% else %}---{% endif %}
+        <td >{% if c.confezioni %}{{c.confezioni}}{% else %}---{% endif %}
+          <td >{{c.prezzo_concordato}}</td>
+          <td >{{c.ricevuto|date:'d-m-y'}}</td>
+          <td >{{tot}}</td>
+          <td ><a href='{{c.get_absolute_url}}' ><i class='fa-solid fa-eye'></i></td>
+          <td ><a href='{% url "magazzino:invioordinepdf" c.pk %}'><i class='fa-solid fa-envelope'></i></td>
+          <td >{% if not c.arrivato %}<a href="{% url 'magazzino:ricezione' pk=c.pk %}"><i class='fa-solid fa-arrow-pointer'></i>{% else %}Ordine Ricevuto{% endif %}</td>
+        
+        {% endfor %}
+      </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

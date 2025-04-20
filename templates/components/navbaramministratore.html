@@ -1,0 +1,241 @@
+{% load django_bootstrap5 %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<style>
+    .time-display {
+        text-align: center;
+        font-size: 16px;
+        color:grey;
+    }
+    .date-display {
+        text-align: center;
+        font-size: 16px;
+        color:grey;
+    }
+    #back{
+       background-color:#f4f56e;
+    } 
+    .colornav{
+      background-color:#ebebe3;
+      color:#494949;
+      border-radius:10px;
+      margin-bottom:5px;
+      margin-top:5px;
+    }
+    
+    
+</style>
+<header class="navbar colornav navbar-expand-lg navbar-dark bg-teal  sticky-top">
+
+    <nav class="container-xxl bd-gutter flex-wrapflex-lg-nowrap" aria-label="Main navigation">
+      <div class="d-lg-none" style="width: 2.25rem;"></div>
+  
+      <a class="nlanding,avbar-brand p-0 me-0 me-lg-2" href="{% url 'home:home'%}" aria-label="Bootstrap">
+        <img src="{% static 'iconarattus.png'%}"style='height:50px'>
+      </a>
+      
+
+      <button class="navbar-toggler d-flex d-lg-none order-3 p-2 " type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+        </svg>
+      </button>
+  
+      <div class="offcanvas-lg offcanvas-end flex-grow-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+        <div class="offcanvas-header px-4 pb-0">
+          <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Rattus</h5>
+          <button type="button" class="btn-close btn-close-" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+        </div>
+  
+        <div class="offcanvas-body p-4 pt-0 p-lg-0 ">
+  <!--Tasto anagrafica-->
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Anagrafica
+    </a>
+    <ul class="dropdown-menu">
+      {% if perms.anagrafica.can_add_azienda %}
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:nuova-anagrafica' %}">Nuova Azienda/Condominio</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:nuovo-privato' %}">Nuovo Privato</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:filiali' %}">Nuova Filiale</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:nuovo-fornitore' %}">Nuovo Fornitore</a></li>{% endif %}
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:elencoclienti' %}">Elenco Clienti</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:elencoprivati' %}">Elenco Privati</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:elencofornitori' %}">Elenco Fornitori</a></li>      
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'anagrafica:elencofiliali' %}">Elenco Filiali</a></li>      
+    </ul>
+  </ul>
+{% if perms.accounts.can_add_dipendente %}
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Dipendenti
+    </a>
+    <ul class="dropdown-menu">
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'dipendenti:nuovodip' %}">Nuovo Dipendente</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'dipendenti:elencodipendenti' %}">Elenco Dipendenti</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'dipendenti:giornatemesedipendente' %}">Giornate Dipendenti</a></li>
+    </ul>
+  </ul>
+  {% endif %}
+  
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Logistica
+    </a>
+    <ul class="dropdown-menu">
+      {% if perms.anagrafica.can_add_azienda %}
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:nuovo-prodotto' %}">Nuovo Prodotto</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:elencoprodotti' %}">Elenco Prodotti</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:magazzino' %}">Giacenze Magazzino</a></li>      
+      <li><hr class="dropdown-divider"></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:nuovo-ordine' %}">Nuovo Ordine</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:ordinidaricevere' %}">Ordini da Ricevere</a></li>{% endif %}
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:ordiniricevuti' %}">Ordini ricevuti</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'logistica:sceglimezzo' %}">Carica Mezzo</a></li>
+     
+          
+    </ul>
+  </ul>
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Automezzi
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'automezzi:nuovo-mezzo' %}">Nuovo Mezzo</a></li>
+      <li><a class="dropdown-item" href="{% url 'automezzi:elenco-mezzi' %}">Elenco Mezzi</a></li>
+      <li><a class="dropdown-item" href="{% url 'automezzi:nuovo-intervento' %}">Intervento Mezzi</a></li>
+      <li><a class="dropdown-item" href="{% url 'automezzi:elenco-interventi' %}">Elenco Interventi Mezzi</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'automezzi:rifornimento' %}">Rifornimento</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'automezzi:vedicartacarburante' %}">Elenco Rifornimenti</a></li>
+      <li role= 'button' aria-disabled='true'><a class="dropdown-item" href="{% url 'automezzi:nuovacartacarburante' %}">Nuova Carta Carburante</a></li>
+    </ul>
+  </ul>
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Servizi e Installazioni
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'logistica:installazione'%}">Nuova Installazione</a></li>
+      <li><a class="dropdown-item" href="{% url 'logistica:vecchiainstallazione'%}">Registra Installazione Esistente</a></li>
+      <li><a class="dropdown-item" href="{% url 'logistica:elencoinstallazioni'%}">Elenco Installazioni</a></li>
+      <li><hr class="dropdown-divider"></li>
+      {% if perms.servizi.can_change_anagrafica %}
+       <li><a class="dropdown-item" href="{% url 'servizi:nuovo-servizio' %}">Nuovo Servizio</a></li>
+       <li><a class="dropdown-item" href="{% url 'servizi:elencoservizi' %}">Elenco Servizi</a></li>
+       <li><a class="dropdown-item" href="{% url 'servizi:elencoservizipdf' %}">Elenco Servizi Pdf</a></li>
+       <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'servizi:distinta' %}">Nuova Distinta</a></li>
+      <li><a class="dropdown-item" href="{% url 'servizi:elencodistinte' %}">Distinte Aperte</a></li>
+      <li><a class="dropdown-item" href="{% url 'servizi:elencodistintechiuse' %}">Distinte Chiuse</a></li>
+    </ul>{% endif %}
+  </ul>
+  <!--Tasto Fatture-->
+  {% if perms.accounts.can_add_cassa %}
+  <ul class="nav-item dropdown "><i class='fa-thin fa-mouse-field'></i>
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Contabilità
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'contabilità:nuovafattura' %}">Nuova Fattura Cliente</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:scegliservizi' %}">File Servizi Mensili</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:elencofattureattive' %}">Elenco Fatture Clienti</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:registrafattura' %}">Registra Fattura Fornitore</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:elencofatturepassive' %}">Elenco Fatture Fornitori</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:elencorecupero' %}">Elenco Crediti da recuperare</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:prelievo' %}">Prelievi in Banca</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:versamento' %}">Versamenti in Banca</a></li>
+
+      <li><a class="dropdown-item" href="{% url 'contabilità:cassa' %}">Cassa</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:movimenti' %}">Movimenti</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:nuovabanca' %}">Inserisci Nuova Banca</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:nuovacassa' %}">Inserisci Nuova Cassa</a></li>
+      <li><a class="dropdown-item" href="{% url 'contabilità:elencobanche' %}">Elenco Banche</a></li>
+    </ul>
+  </ul>
+  {% endif %}
+  <!--Tasto Contratti-->
+  {% if perms.accounts.can_add_contratto %}
+  <ul class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle .d-block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Contratti
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'contratti:nuovocontratto' %}">Nuovo Contratto</a></li>
+      <li><a class="dropdown-item" href="{% url 'contratti:elencocontratti' %}">Elenco Contratti</a></li>
+      
+    </ul>
+  </ul>
+{% endif %}
+
+
+  <ul class='navbar-nav flex-row flex-wrap ms-md-auto text-center'>
+    <li class="nav-item"id="date"></li> 
+  </ul> 
+  <ul class='navbar-nav flex-row flex-wrap ms-md-auto text-center'>
+    <li class="nav-item" id='time'></li>
+  </ul>
+          <hr class="d-lg-none text-white-50">
+  <ul>{{user.username}}</ul>
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+               <li class='nav-item>'><a class="btn btn-outline-success " href="{% url 'dipendenti:logout' %}">Log Out</a>
+        </ul>   
+        <ul>
+          <p class="d-inline-flex gap-1">
+            <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+            </a> </p>
+        </ul>
+         </header>
+       
+     
+      
+        <div class="collapse mb-2" id="collapseExample">
+          <div class="card card-body">
+            <form class="d-flex" role="search" action={% url "home:funzione-cerca" %}>
+              <input class="form-control me-2" name='q' type="search" placeholder="Cerca" aria-label="Search">
+              <button class="btn btn-outline-success mx-1" type="submit"><i class='fa fa-search'></i>
+              </button>
+            </form>        
+            </div>
+        </div>
+         
+      
+  </div>
+         
+        
+        
+        
+        
+        
+  <script>
+    // Update time and date
+    function updateDateTime() {
+    const now = new Date();
+    const timeDisplay = document.getElementById('time');
+    const dateDisplay = document.getElementById('date');
+
+    // Update time
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    timeDisplay.textContent = `${hours}:${minutes}`;
+
+    // Update date
+    const options = { weekday: 'long', month: 'short', day: 'numeric' };
+    dateDisplay.textContent = now.toLocaleDateString('it', options);
+    }
+
+
+
+    // Initialize
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+</script> 

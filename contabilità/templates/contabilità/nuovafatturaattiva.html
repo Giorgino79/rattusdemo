@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Nuova Fattura{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <h3 class='text-center'>Inserisci Nuova Fattura</h3>
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type='submit' class='btn btn-primary' value='conferma'>
+    </form>
+</div>
+
+{% endblock content %}

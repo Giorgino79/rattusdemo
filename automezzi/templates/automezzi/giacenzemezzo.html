@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Prodotti nel mezzo {{mezzo.targa}}{% endblock title %}
+
+
+{% block content %}
+<div class='container jumbotron table-responsive'>
+<h3 class='text-center '>Elenco Prodotti Giacenti nel Mezzo {{mezzo.targa}}</h3>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Codice</th>
+        <th scope="col">Nome Prodotto</th>
+        <th scope="col">Fornitore</th>
+        <th scope='col'>Giacenza</th>
+        
+      </tr>
+    </thead>
+    <tbody> 
+      <tr>
+        
+        <th scope="row">{{mezzo.prod1.id}}</th>
+        <td>{{mezzo.prod1.nome_prodotto}}</td>
+        <td>{{mezzo.prod1.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac1}}</td>
+        
+      </tr>
+      <tr>
+        
+        <th scope="row">{{mezzo.prod2.id}}</th>
+        <td>{{mezzo.prod2.nome_prodotto}}</td>
+        <td>{{mezzo.prod2.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac}}</td>
+        
+      </tr>
+      <tr>
+        
+        <th scope="row">{{mezzo.prod3.id}}</th>
+        <td>{{mezzo.prod3.nome_prodotto}}</td>
+        <td>{{mezzo.prod3.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac3}}</td>
+        
+      </tr>
+      <tr>
+        
+        <th scope="row">{{mezzo.prod4.id}}</th>
+        <td>{{mezzo.prod4.nome_prodotto}}</td>
+        <td>{{mezzo.prod4.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac4}}</td>
+        
+      </tr>
+      <tr>
+        
+        <th scope="row">{{mezzo.prod5.id}}</th>
+        <td>{{mezzo.prod5.nome_prodotto}}</td>
+        <td>{{mezzo.prod5.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac5}}</td>
+        
+      </tr>
+      <tr>
+        
+        <th scope="row">{{mezzo.prod6.id}}</th>
+        <td>{{mezzo.prod6.nome_prodotto}}</td>
+        <td>{{mezzo.prod6.fornitore.ragioneSociale}}</td>
+        <td>{{mezzo.giac6}}</td>
+        
+      </tr>
+      
+
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

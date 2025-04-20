@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}Scheda Cliente: {{q.ragioneSociale}} {% endblock title %}
+
+{% block content %}
+
+
+
+
+<div class="col-sm-12 jumbotron container ">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-header">{{c.ragioneSociale}}</h3>
+        <h6 class='card-header'>Codice cliente: {{c.id}}- {{c.tipo}}</h6>
+        <p class='card-text text-center'>
+          <a href={% url "anagrafica:aggiornaazienda" pk=c.id %}><button class='btn btn-primary'>Aggiorna Scheda</button></a>
+        </p>
+        <hr>
+        <p class='card-text text-center'>Indirizzo: <strong>{{c.capLegale}} - {{c.indSedeLegale}} - {{c.cittaLegale}} - ({{c.provincia}})</p>
+        <hr>
+        <p class='card-text text-center'>Partita Iva: <span><strong>{{c.PI}}</strong> - Codice Fiscale: <strong>{{c.CF}}</strong> - Codice Univoco: <strong>{{c.CU}}</p>
+        <hr>
+        <p class='card-text text-center'>Referente: <strong> {{c.referente}}</p>
+        <hr>
+        <p class='card-text text-center'>Telefono: <strong>{{c.telefono}}</p>
+        <hr>
+        <p class='card-text text-center'>Mail Direzione: <strong>{{c.pec}}</p>
+        <p class='card-text text-center'>Mail Direzione: <strong>{{c.mailDirezione}}</p>
+        <p class='card-text text-center'>Mail Amministrazione: <strong>{{c.mailAmministrazione}}</strong></p>
+        <p class='card-text text-center'>Mail Operativo 1: <strong>{{c.mailOperativo1}}</p>
+        <p class='card-text text-center'>Mail Operativo 2: <strong>{{c.mailOperativo2}}</p>
+        <p class='card-text text-center'>Mail Operativo 3: <strong>{{c.mailOperativo3}}</p>
+
+        <div class='card-footer'>
+        <p class='card-text text-center'>
+        <a href=''><button class='btn btn-primary'>Vedi Scheda Contabile</button></a>
+        <a href=''><button class='btn btn-primary'>Vedi Contratto</button></a>
+        <a href=''><button class='btn btn-primary'>Vedi? </button></a>
+        </p>
+        <p class='card-text text-center'>
+            <a href={% url "anagrafica:elencoclienti" %}><button class='btn btn-primary'>Torna all'elenco</button></a>
+        </p>
+      </div> 
+    </div>
+    <hr>
+    <div class='responsive'>
+      <h3 class='text-center'>Installazioni presso il cliente</h3>
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <th scope="col">Data Installazione</th>
+            <th scope="col">Prodotto installato</th>
+            <th scope="col">Quantità prodotti</th>
+            
+            
+          </tr>
+        </thead>
+        <tbody> 
+          <tr>  {% for c in insta  %}
+            <th scope="row">{{c.data_installazione}}</th>
+            <td>{{c.prodotto.nome_prodotto}}</td>
+            <td>{{c.quantità}}</td>
+            
+          </tr> {% endfor %}
+        </tbody>
+      </table>
+    </div>
+      
+      
+</div>
+
+
+
+{% endblock content %}

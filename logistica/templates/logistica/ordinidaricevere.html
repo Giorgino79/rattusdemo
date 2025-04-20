@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Ordini di Acquisto{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 class='text-center'>Elenco Ordini da Ricevere</h3>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th  scope="col">Numero ordine</th>
+        <th  scope="col">Data Ordine</th>
+        <th  scope="col">Nome Prodotto</th>
+        <th  scope="col">Fornitore</th>
+        <th  scope="col">Data Arrivo Prevista</th>        
+        <th  scope="col">Articoli ordinati</th>        
+        <th  scope='col'>Prezzo concordato</th>
+        <th  scope='col'>Vedi ordine</th>
+        <th  scope='col'>Invia mail ordine</th>
+        <th  scope='col'>Ricevi Ordine</th>
+        
+      </tr>
+    </thead>
+    <tbody> {% for c in  ordini %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>
+        <td >{{c.data_ordine|date:'d-m-y'}}</td>
+        <td >{{c.prodotto.nome_prodotto}}</td>
+        <td >{{c.prodotto.fornitore.ragioneSociale}}</td>
+        <td >{{c.data_arrivo_ordine|date:'d-m-y'}}</td>
+        <td >{% if c.numero_articoli %}{{c.numero_articoli}}{% else %}---{% endif %}
+          <td >{{c.prezzo_singolo_articolo}} €</td>
+          <td ><a href='{{c.get_absolute_url}}' ><i class='fa-solid fa-eye'></i></td>
+          <td ><a href='{% url "logistica:invioordinepdf" c.pk %}'><i class='fa-solid fa-envelope'></i></td>
+          <td >{% if not c.arrivato %}<a href="{% url 'logistica:ricezione' pk=c.pk %}"><i class='fa-solid fa-arrow-pointer'></i>{% else %}Ordine Ricevuto{% endif %}</td>
+        
+        {% endfor %}
+      </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

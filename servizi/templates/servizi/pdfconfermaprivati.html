@@ -1,0 +1,66 @@
+<head><style>
+            #customers {
+              font-family: Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            #customers td, #customers th {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+            
+            #customers tr:nth-child(even){background-color: #f2f2f2;}
+            
+            #customers tr:hover {background-color: #ddd;}
+            
+            #customers th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: #04AA6D;
+              color: white;
+            }
+         
+          </style>
+          <title>Conferma servizio numero: {{s.id}}</title></head>
+
+<img src='static/logonuovo.jpeg' style='width:120px; height:90px; text-align:center'>
+
+{% block content %}
+<h1 style='text-align:center'>Report Servizio</h1>
+<hr>
+<div class='container'>
+    <h3 style='text-align:center'>Servizio nr. : {{s.id}} <br> Cliente:{{s.azienda.ragioneSociale}}</h3>
+    
+    <div>
+        <p style='text-align:center'>Servizio Richiesto: {{s.Tiposervizio}}</p>
+        <p style='text-align:center'>Operatore: {{user.username}}</p>
+        <p style='text-align:center'>Tipo pagamento: {% if s.incasso %}  Incasso al servizio {{s.importo_incassato}}{% else %}Fattura differita fine mese{% endif %}</p>
+        <p style='text-align:center;'>Servizio espletato in data:<br>{{s.data_espletazione}}</p>
+
+
+
+          
+            
+            <table id="customers" style='margin-bottom:535px'>
+              <tr>
+                <th>Luogo</th>
+                <th>Prodotti Utilizzati</th>
+              </tr>
+              <tr>
+                <td>{% if s.azienda.indSedeLegale %}{{s.azienda.indSedeLegale}}{% else %}{{s.altro_luogo}}{% endif %}</td>
+                <td>{{s.prodotto.nome_prodotto}}</td>
+              </tr>
+              <tr><th>Principi attivi</th></tr>
+                             <td>{{s.prodotto.principi_attivi}}</td>
+
+             
+            </table>
+        
+    
+  
+</div>
+<footer style='text-align:center'><hr>giisoftware srl<br>Via Tione degli Abruzzi, 19<br>00132 Roma</footer>
+</div>
+{% endblock content %} 

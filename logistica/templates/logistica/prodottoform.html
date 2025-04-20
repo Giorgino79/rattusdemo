@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ block.super }}Nuovo Prodotto{% endblock title %}
+
+{% block content %}
+
+<div class='container'>
+    <div class='jumbotron'>
+        <h3 class='text-center'>Inserimento Nuovo Prodotto</h3>
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        <button class='btn btn-primary'type='submit'>Conferma</button>
+    </form>
+</div>
+
+</div>
+{% endblock content %}

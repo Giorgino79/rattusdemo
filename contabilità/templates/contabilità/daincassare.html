@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}{{ block.super }}Incassi Inevasi{% endblock title %}
+
+{% block content %}
+<div class='container-fluid jumbotron text-center'>
+    <h3>Incassi inevasi</h3>
+
+<div class='table-responsive'>
+    <table class='table table-hover responsive'><hr>
+        <thead>
+            <tr>
+                <th scope='col'>Numero Recupero</th>                
+                <th scope='col'>Data Creazione Recupero</th>
+                <th scope='col'>Numero Servizio</th>
+                <th scope='col'>Cliente</th>
+                <th scope='col'>Numero Telefono Cliente</th>
+                <th scope='col'>Incasso originario</th>
+                <th scope='col'>Incasso effettuato</th>
+                <th scope='col'>Differenza</th>
+            </tr> 
+        </thead>
+        <tbody>{% if not recuperi.chiuso %}
+            {% for i in recuperi  %} 
+            <tr>
+                <td scope='col'>{{i.id}}</td>
+                <td scope='col'>{{i.data_creazione|date:'d-m-y'}}</td>
+                <td scope='col'>{{i.servizio.id}}</td>
+                <td scope='col'>{% if i.servizio.azienda.ragioneSociale  %}{{i.servizio.azienda.ragioneSociale}}{% else %}{{i.servizio.privati.nome_cognome}}{% endif %}</td>
+                <td scope='col'>{% if i.servizio.azienda.telefono %}{{i.servizio.azienda.telefono}}{% else %}{{i.servizio.privati.telefono_cliente}}{% endif %}</td>
+                <td scope='col'>{{i.servizio.prezzo}}</td>
+                <td scope='col'>{{i.servizio.importo_incassato}}</td>
+                <td scope='col'>{{i.importo}}</td>
+                
+                            
+                {% endfor %}
+            </tr>
+        </tbody>
+        {% endif %}
+    </table>
+</div>
+
+</div>
+{% endblock content %}
+
+
+<!-- la tabella sotto era quella iniziale fatta prima che i recuperi 
+ fossero automatizzati con la chiusura del servizio-->
+{% comment %} <div class='table-responsive'>
+    <table class='table table-hover responsive'><hr>
+        <thead>
+            <tr>
+                <th scope='col'>Numero Recupero</th>
+                <th scope='col'>Numero Servizio</th>
+                <th scope='col'>Cliente</th>
+                <th scope='col'>Numero Telefono Cliente</th>
+                <th scope='col'>Incasso originario</th>
+                <th scope='col'>Incasso effettuato</th>
+                <th scope='col'>Differenza</th>
+                <th scope='col'>Crea Recupero</th>
+            </tr> 
+        </thead>
+        <tbody>{% if not recuperi.chiuso %}
+            {% for i in inc %}
+            <tr>
+                <td scope='col'>{{recuperi.id}}</td>
+                <td scope='col'>{{i.id}}</td>
+                <td scope='col'>{% if i.azienda.ragioneSociale  %}{{i.azienda.ragioneSociale}}{% else %}{{i.privati.nome_cognome}}{% endif %}</td>
+                <td scope='col'>{% if i.azienda.telefono %}{{i.azienda.telefono}}{% else %}{{i.privati.telefono_cliente}}{% endif %}</td>
+                <td scope='col'>{{i.prezzo}}</td>
+                <td scope='col'>{{i.importo_incassato}}</td>
+                <td scope='col'>{{somma.tot}}</td>
+                <td scope='col'>
+                    {% if i.servizio.id != recuperi.servizio.pk  %}
+                    <a href="{% url 'contabilità:recupero' pk=i.pk %}" ><i class='fa fa-arrow-pointer' style='color:green'></i></a>
+                    {% else %}
+                    Recupero già inserito
+                    {% endif %}
+                </td>
+                            
+                {% endfor %}
+            </tr>
+        </tbody>
+        <tfoot> 
+            <tr>
+                <th>Totali</th>
+                <th></th>
+                <th></th>
+                <th>{{el.tp}}</th>
+                <th>{{tot.inc}}</th>
+                <th>{{somma.tot}}</th>
+                <th></th>
+            </tr>
+        </tfoot>{% endif %}
+    </table>
+</div> {% endcomment %}

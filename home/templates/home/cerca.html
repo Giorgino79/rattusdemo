@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }} - Cerca nel Programma{% endblock title %}
+
+{% block content %}
+<div class='table-responsive jumbotron'>
+<h1 class="mt-3 text-center">Risultati della Ricerca</h1>
+<hr>
+<div class="row mt-3">
+    <div class="col-4">
+        <h5><strong>Clienti</strong></h5>
+        <hr>
+        {% if clienti %}
+            {% for cliente in clienti %}
+                <p><a href="{{ cliente.get_absolute_url }}">{{ cliente.ragioneSociale }}</a></p>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Fornitori</strong></h5>
+        <hr>
+        {% if fornitori %}
+            {% for fornitore in fornitori %}
+                <p><a href="{{ fornitore.get_absolute_url }}">{{ fornitore.ragioneSociale }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Privati</strong></h5>
+        <hr>
+        {% if privati %}
+            {% for privato in privati %}
+                <p><a href="{{privato.get_absolute_url}}">{{privato.nome_cognome }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Prodotti</strong></h5>
+        <hr>
+        {% if prodotti %}
+            {% for prodotto in prodotti%}
+                <p><a href="{{prodotto.get_absolute_url}}">{{prodotto.nome_prodotto}}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Servizi Privati</strong></h5>
+        <hr>
+        {% if serpriv %}
+            {% for priva in serpriv %}
+                <p><a href="{{priva.get_absolute_url}}">{{priva.nome_cognome}}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Servizi Aziende</strong></h5>
+        <hr>
+        {% if servizio %}
+            {% for ser in servizio %}
+                <p><a href="{{ser.get_absolute_url}}">{{ser.ragioneSociale}}</a></p>
+            {% endfor %}
+        {% else %}
+            <p>---</p>
+        {% endif %}
+    </div>
+
+</div></div>
+{% endblock content %}

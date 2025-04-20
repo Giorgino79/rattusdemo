@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Carico Mezzo {{mezzo.targa}}{% endblock title %}
+
+
+{% block content %}
+
+<div class='container jumbotron table-responsive'>
+
+    {% comment %} <div class='row'>
+        <div class='col-8'>
+            <h3 class='text-center'>Carico Mezzo {{mezzo.targa}}</h3>
+
+            <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th  colspan="1">Nome Prodotto</th>
+                    <th  colspan="1">q.tà sul mezzo</th>        
+                    <th  colspan="1">Carica o scarica</th>        
+                    
+                  </tr>
+                </thead>
+
+                <tbody>
+                    <form method='POST'>
+                        {% csrf_token %}
+                    <tr>
+                        <td name='prod1'>{{mezzo.prod1.nome_prodotto}}</td>
+                        <td>{{mezzo.giac1}}</td>
+                        <td name='giac1' class='form-control-sm'>{{form.q1}}</td>                       <td> 
+                    
+                    </tr>
+                    <tr>                        
+                        
+
+                        <td name='prod2'>{{mezzo.prod2.nome_prodotto}}</td>
+                        <td>{{mezzo.giac2}}</td>
+                       <td name='giac2' class='form-control-sm'><form method='POST'> {{form.q2}}</td><td>
+                    </tr>                        
+                
+                    <tr>
+                        
+
+                        <td name='prod3'>{{mezzo.prod3.nome_prodotto}}</td>
+                        <td>{{mezzo.giac3}}</td>
+                        <td name='giac3' class='form-control-sm'><form method='POST'>{{form.q3}}</td> <td> 
+                    </tr>                      
+                
+                    <tr>
+                        
+
+                        <td name='prod4'>{{mezzo.prod4.nome_prodotto}}</td>
+                        <td>{{mezzo.giac4}}</td>
+                        <td name='giac4' class='form-control-sm'>{{form.q4}}</td><td>  
+                    </tr>                      
+                
+                    <tr>
+
+                        <td name='prod5'>{{mezzo.prod5.nome_prodotto}}</td>
+                        <td>{{mezzo.giac5}}</td>
+                        <td name='giac5' class='form-control-sm'><form method='POST'>{{form.q5}}</td><td>  </td>
+                    </tr>                      
+                
+                    <tr>
+                        
+                        <td name='prod6'>{{mezzo.prod6.nome_prodotto}}</td>
+                        <td>{{mezzo.giac6}}</td>
+                        <td name='giac6' class='form-control-sm'><form method='POST'>{{form.q6}}</td>
+                       <td> </td><input type='submit' class='btn btn-primary' value='conferma'>
+                    </form>
+                    </tr>
+                    
+                        
+                    
+                </tbody></table>
+      </form>
+        
+       {% endcomment %}
+
+
+        </div>
+        <div class='col-4'>
+            <h3 class='text-center'>Scorte in magazzino</h3>
+
+            <table class='table table-hover'>
+                <thead>
+                    <tr>
+                        <th scope='col'>Nome Prodotto</th>
+                        <th scope='col'>Articoli caricati</th>
+                    </tr>
+                </thead>{% for m in scorte %}
+                <tbody>
+                    <td>{{m.prodotto.nome_prodotto}}</td>
+                    <td>{{m.giacenza}}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

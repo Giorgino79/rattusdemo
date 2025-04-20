@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}Scegli Mezzo{% endblock title %}
+
+{% block content %}
+<div class='container jumbotron text-center'>
+    {% for m in mezzo %}
+        <a href="{% url 'logistica:caricamezzo' m.pk%}" class='btn btn-primary'>{{m.targa}}</a>
+    {% endfor %}
+</div>
+
+{% endblock content %}

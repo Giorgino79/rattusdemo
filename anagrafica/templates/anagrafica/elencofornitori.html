@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% url 'anagrafica:vedifornitore' as codice %}
+{% block title %} {{ block.super }} Elenco Anagrafica{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 class='text-center'>Elenco Anagrafica Fornitori</h3>
+
+
+
+<table class="table table-hover text-center">
+    <thead>
+      <tr>
+        <th scope="col">Codice</th>
+        <th scope="col">Ragione Sociale</th>
+        <th scope="col">Città</th>
+        <th scope="col">Referente</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Email</th>
+        <th scope="col">Vedi Scheda Fornitore</th>
+        <th scope='col'>Aggiorna Fornitore</th>
+        
+      </tr>
+    </thead>
+    <tbody> 
+      {% for c in  clienti %}
+      <tr>  
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.ragioneSociale}}</td>
+        <td>{{c.cittaLegale}}</td>
+        <td>{{c.referente}}</td>
+        <td>{{c.telefono}}</td>
+        <td>{{c.mailOperativo1}}</td>
+        <td><a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></td>
+        <td><a href="{% url 'anagrafica:aggiornafornitore' c.pk %}"><i class='fas fa-edit'></i></td>
+
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+{% endblock content %}

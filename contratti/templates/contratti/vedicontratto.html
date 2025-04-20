@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }}Servizio nr: {{c.id}} {% endblock title %}
+
+{% block content %}
+ 
+
+
+
+<div class="container col-sm-12 jumbotron">
+    <div class="card">
+      <div class='card-header'>
+        <h5 class="text-center">Contratto nr. {{c.id}}<br>
+        {{c.anagrafica.ragioneSociale}}<br>
+            Nome Contratto: {{c.nome_contratto}}</h3>
+        </div>
+      
+       <div class="card-body">
+        <p> Data proposta contratto: {{c.data}}</p>
+        <p> Servizio proposto: {{c.tipo_servizio}}</p>
+        <p> Prezzo per ogni servizio: {{c.prezzo}} €</p>
+        <p> Cadenza della prestazione del servizio: {{c.frequenza}}</p>
+        <p> Pagamento: {{c.pagamento}}</p>
+        <p> {% if c.note %}{{c.note}}{% else %}{% endif %}</p>
+        <p> Inizio validità del contratto:{% if c.inizio_validità %}{{c.inizio_validità|date:'d-m-y'}}{% else %}---{% endif %}</p>
+        <p> Scadenza del Contratto: {% if c.scadenza_contratto %}{{c.scadenza_contratto|date:'d-m-y'}}{% else %}---{% endif %}</p>
+       </div>
+        <div class='card-footer'>
+            <a href="{% url 'contratti:elencocontratti' %}"><button class='btn btn-primary'>Torna all'elenco dei contratti</button></a>
+            <a href="{% url 'contratti:modificacontratto' pk=c.pk %}"><button class='btn btn-primary'>Modifica<i class='fa fa-edit' style='color:#9fd3c7'></i></button></a>
+            <a href="{% url 'contratti:eliminacontratto' pk=c.pk %}"><button class='btn btn-primary'>Elimina<i class='fa fa-trash' style='color:#f95959'></i></button></a>
+        </div>
+      
+     </div>
+
+
+
+{% endblock content %}

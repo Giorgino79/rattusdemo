@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Ore mese {{dip.last_name}}{% endblock title %}
+
+{% block content %}    
+<div class='jumbotron container table-responsive'>
+    <h3 > Dipendente: {{dip.first_name}} {{dip.last_name}}</h3>
+    <h6>Giornate dal {{inizio}} al {{fine}}</h6>
+    <div class='mb-2'>
+    <table class="table">
+        <thead >
+          <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Inizio Mattina</th>
+            <th scope="col">Fine Mattina</th>
+            <th scope="col">Inizio Pomeriggio</th>
+            <th scope="col">Fine Pomeriggio</th>
+            <th scope='col'>Totale Ore Giorno</th>
+            
+    
+          </tr>
+        </thead>
+        <tbody> 
+            {% for c in  a %}
+              {% if c in giornaliere %}
+          <tr>
+            
+            <th scope="row">{{c.data|date:'d-m-y'}}</th>
+            <th scope='row'>{% if c.ora_inizio_mattina %}{{c.ora_inizio_mattina}} {% else %}--- {% endif %} </th>
+            <th scope='row'>{% if c.ora_fine_mattina %}{{c.ora_fine_mattina}}{% else %}--- {% endif %}</th>
+            <th scope='row'> {% if c.ora_inizio_pomeriggio %} {{c.ora_inizio_pomeriggio}} {% else %}---{% endif %}</th>
+            <th scope='row'> {% if c.ora_fine_pomeriggio %} {{c.ora_fine_pomeriggio}} {% else %}---{% endif %}</th>
+            <th scope='row'> {{ c.daily_hours }}</th>
+            {% endif %}
+            
+            {% endfor %}
+          </tr>
+         
+    
+          
+        </tbody>
+    </table>{{oggi}}
+    </div></div>
+    {% endblock content %}

@@ -1,0 +1,13 @@
+<h1>Benvenuto {{ request.user.username }}</h1>
+
+<h2>Ore di oggi</h2>
+<ul>
+  {% for entry in giornaliere %}
+    <li>{{ entry.data }}: {{ entry.daily_hours }}</li>
+  {% empty %}
+    <li>Nessuna registrazione per oggi</li>
+  {% endfor %}
+</ul>
+
+<h2>Totale settimanale: {{ ore_settimanali }}</h2>
+<h2>Totale mensile: {{ ore_mensili }}</h2>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }}Recupero credito nr: {{recupero.id}}{% endblock title %}
+
+{% block content %}
+
+<div class='jumbotron '>
+    <h3 class='text-center'>
+        Aggiornamento Recupero credito nr: {{recupero.id}}<br>
+        Cliente: {% if recupero.servizio.azienda.ragioneSociale  %}{{recupero.servizio.azienda.ragioneSociale}}{% else %}{{recupero.servizio.privati.nome_cognome}}{%endif%}<br>
+        Importo da riscuotere: {{recupero.importo}} <br>
+        Servizio di riferimento: {{recupero.servizio.pk}}
+
+    </h3>
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{form|crispy}}
+        
+        <button class='btn btn-primary'type='submit'>Conferma</button>
+    </form>
+</div>
+
+
+{% endblock content %}

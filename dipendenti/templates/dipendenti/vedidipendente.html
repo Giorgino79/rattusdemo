@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Scheda dipendente {{dipen.last_name}}{% endblock title %}
+
+
+{% block content %}
+
+
+<div class='container jumbotron'>
+        <h1 class='text-center'>{{dipen.first_name}} {{dipen.last_name}}</h1>
+        <div class='card'>
+            <div class='card-header text-center'>
+                {% if dipen.foto_dipendente %}<img src="{{ dipen.foto_dipendente.url }}" class="card-img-top"style='width:70px;' alt="..."><br>{% else %}Nessuna foto caricata{% endif %}<br>
+                Username: {{dipen.username}}<br>
+                Password:{{dipen.password}}<br>
+                Livello autorizzazioni: {{dipen.livello}}
+            </div>
+            <div class='card-body'><div class='row'>
+                <div class='col-6'>
+                    <strong>Registrazioni:</strong><br>
+                    Posizione Inail:<br>{{dipen.posizione_inail}}<hr>
+                    Posizione Inps:<br>{{dipen.posizione_inps}}
+                    
+                </div>
+                <div class='col-6'>
+                    <strong>Dati personali</strong><br>
+                    Residenza:<br>{{dipen.indirizzo}}<hr>
+                    Codice Fiscale:<br>{{dipen.CF}}<hr>
+                    Cartà d'identità:<br> {{dipen.carta_d_identità}}<hr>
+                    Patente:<br>{{dipen.patente_di_guida}}<hr>
+                    mail:<br>{{dipen.email}}
+                    
+                </div>
+            </div><hr>
+                <div class='col-12'>
+                    Note:<br>
+                    {{dipen.note}}
+                </div>
+                <hr>
+                <div class='row'>
+                <div class='col-6'>
+                    Allegati:
+                    {% if dipen.foto_carta_identit %} Foto Carta d'identità:<br><img src="{{ dipen.foto_carta_identità.url }}" class="card-img-top" style='width:70px;'alt="..."><hr>{% else %}Foto Carta identità non caricata{% endif %}
+                    {% if dipen.foto_codice_fiscale%}Foto Codice Fiscale:<br><img src="{{ dipen.foto_codice_fiscale.url }}" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}Foto non Caricata{% endif %}
+                    {% if dipen.foto_patente %} Foto Patente:<br><img src="{{ dipen.foto_patente.url }}" class="card-img-top" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}Foto non caricata{%endif %}
+                </div>
+                <br>
+                <div class='col-6'>
+                    Allegati:<br>
+                    {% if dipen.all1 %}<img src="{{ dipen.all1.url }}" class="card-img-top" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}---{% endif %}
+                    {% if dipen.all2 %}<img src="{{ dipen.all2.url }}" class="card-img-top" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}---{% endif %}
+                    {% if dipen.all3 %}<img src="{{ dipen.all3.url }}" class="card-img-top" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}---{% endif %}
+                    {% if dipen.all4 %}<img src="{{ dipen.all4.url }}" class="card-img-top" style='width:70px;' class="card-img-top" alt="..."><hr>{% else %}---{% endif %}
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock content %}

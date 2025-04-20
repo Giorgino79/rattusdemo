@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} {{ block.super }} Elenco Dipendenti{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron table-responsive'>
+<h3 class='text-center '>Elenco Dipendenti</h3>
+
+<hr>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th  scope="col">Codice</th>
+        <th  scope="col">Nome e Cognome</th>
+        <th  scope="col">Username</th>        
+        <th  scope="col">Abilitazione</th>
+        <th  scope='col'>Vedi Scheda</th>
+        <th  scope='col'>Aggiorna Scheda</th>
+        
+      </tr>
+    </thead>
+    <tbody> {% for c in  dip %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>
+        <td >{{c.first_name}} {{c.last_name}}</td>
+        <td >{{c.username}}</td>
+        <td >{{c.livello}}</td>
+        <td ><a href='{{c.get_absolute_url}}' ><i class='fa-solid fa-arrow-pointer'></i></td>
+        <td ><a href="{% url 'dipendenti:vedidipendente' pk=c.pk%}"><i class='fa fa-edit'></i></a></td>
+        {% endfor %}
+      </tr>
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock content %}

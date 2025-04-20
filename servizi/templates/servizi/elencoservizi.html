@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} {{ block.super }} Elenco Servizi da Espletare{% endblock title %}
+
+
+{% block content %}
+<div class='jumbotron container table-responsive'>
+<h3 >Servizi da Espletare</h3>
+
+<div class='mb-2'>
+<table class="table">
+    <thead >
+      <tr>
+        <th scope="col">Servizio nr.</th>
+        <th scope="col">Data espletazione</th>
+        <th scope="col">Tipo Servizio</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Filiale</th>
+        <th scope="col">Prezzo</th>
+        <th scope="col">Incasso</th>
+        <th scope="col">Prodotto</th>
+        <th scope="col">Espletato</th>
+        <th scope='col'>Vedi Servizio</th>
+        <th scope='col'>Pdf</th>
+        <th scope='col'>Invio Mail Report</th>
+
+      </tr>
+    </thead>
+    <tbody> 
+        {% for c in  servizio %}
+      <tr>
+        
+        <th scope="row">{{c.id}}</th>
+        <td>{{c.data_espletazione|date:'d-m-y'}}</td>
+        <td>{{c.Tiposervizio}}</td>
+        
+        <td> {% if c.azienda %} {{c.azienda}} {% else %} {{c.privati}} {% endif %}</td>
+        <td> {% if c.filiali %} {{c.filiali}}{% else %}---{% endif %}</td>
+        <td> {% if c.prezzo %} {{c.prezzo}} {% else %} --- {% endif %}</td>
+        <td> {% if c.incasso is True %}{{c.prezzo}} {% else %} --- {% endif %}</td>
+        <td>{{c.prodotto}}</td>
+        <td> {% if c.espletato == True %}<i class='fa-solid fa-check'></i> {% else %} da espletare{% endif %}</td> 
+        <td><a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></a></td>
+       <td><a href="{% url 'servizi:vedipdf' c.pk%}"><i class='fa fa-eye' style='color:orange'></i></a></td>
+        <td><a href="{%url 'servizi:pdf' pk=c.pk %}" name='report' type='file'><i class='fa fa-file-pdf' style='color:red'></i></a></form>
+            {% endfor %}
+      </tr>
+     
+
+      
+    </tbody>
+</table>
+</div></div>
+{% endblock content %}

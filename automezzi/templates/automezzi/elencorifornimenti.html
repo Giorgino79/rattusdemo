@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% url 'anagrafica:vedicodice' as codice %}
+{% block title %} {{ block.super }} Elenco Mezzi{% endblock title %}
+
+
+{% block content %}
+
+
+
+
+<div class='container jumbotron'>
+  <div class='table-responsive'><h3>Elenco Rifornimenti</h3> </p>(ultimi 15 rifornimenti effettuati con questa carta)</p>
+<table class="table" >
+    <thead>
+      <tr>
+        <th scope="col">Carta</th>
+        <th scope="col">Targa</th>
+        <th scope="col">Data rifonrnimento</th>
+        <th scope="col">Importo</th>
+        <th scope="col">Operatore</th>
+        <th scope="col">Residuo Carta</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>{% for c in  carta %}
+      <tr>
+        
+        <th scope="row">{{c.carta.nome}}</th>
+        <td>{{c.mezzo.targa}}</td>
+        <td>{{c.data}}</td>
+        <td>{{c.importo}}</td>
+        <td>{{c.operatore}}</td>
+        <td>{{c.residuo}}</td>
+        
+      </tr>{% endfor %}
+     
+      </div>
+    </div>
+{% endblock content %}

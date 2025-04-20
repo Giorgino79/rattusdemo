@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ block.super }}Chiudi Distinta{% endblock title %}
+
+{% block content %}
+
+<div class='container jumbotron'>
+    <h3>Elenco servizi chiusi dall'operatore</h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Servizio nr.</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Espletato</th>
+            <th scope="col">Incasso</th>
+            <th scope='col'>Importo Incassato</th>
+           
+            
+          </tr>
+        </thead>
+        <tbody> 
+           {% for distinta in distinta.servizio.all  %}
+          <tr>
+            
+            <th scope="row">{{distinta.pk}}</th>        
+            <td>{% if distinta.azienda %} {{distinta.azienda.ragioneSociale}}{% elif distinta.privati %}{{distinta.privati.nome_cognome}}{% else %}---{% endif %}</td>
+            <td>{% if distinta.espletato%}Servizio Effettuato {% else %} <p style='color:red'>Servizio non chiuso</p> {% endif %}</td>
+            <td> {% if distinta.incasso %}{{distinta.prezzo}}{% else %}Nulla da incassare{% endif %}</td>
+            <td>{% if distinta.incasso %}{{distinta.importo_incassato}}{% else %}Nulla da incassare{% endif %}</td>
+            {% endfor %}
+          </tr>
+   
+          
+        </tbody>
+    </table>
+    <form method='POST' class='mt-4'>
+        {% csrf_token %}
+        <h3>Confermi chiusura della distinta</h3>
+        {% comment %} <h4>Incassi totale del giorno: {{importo.totale}}</h4> {% endcomment %}
+        {{form|crispy}}
+        <input type='submit' value='Conferma' class='btn btn-primary'>
+    </form>
+</div>
+
+{% endblock content %}

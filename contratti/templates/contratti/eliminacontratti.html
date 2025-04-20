@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title  %}{{ block.super }}Cancella contratto {% endblock title  %}
+
+{% block content %}
+<div class='container jumbotron text-center'>
+    <h3>Cancella Contratto numero: {{c.id}}<br>Cliente: {{c.anagrafica.ragioneSociale}}<br>Nome contratto: {{c.nome_contratto}}</h3>
+    <form method='POST'>
+        {% csrf_token %}
+        <h6>Sicuro di voler eliminare il contratto? Una volta eliminato non sarà più recuperabile</h6>
+        <input type='submit' class='btn btn-danger' value='Cancella'>
+        <a href="{% url 'contratti:elencocontratti'%}" type='button' class='btn btn-success'>Torna Indietro</a>
+    </form>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Prodotti in carico al mezzo {{mezzo.targa}}{% endblock title %}
+
+
+{% block content %}
+
+<div class='container jumbotron table-responsive'>
+    <h3 class='text-center'>Prodotti in carico al mezzo {{mezzo.targa}}</h3>
+
+    <table class='table table-hover'>
+        <thead>
+            <tr>
+                <th scope='col'>Nome Prodotto</th>
+                <th scope='col'>Articoli caricati</th>
+                <th scope='col'>Data carico</th>
+            </tr>
+        </thead>{% for m in carichi %}
+        <tbody>
+            <td>{{m.prodotto.nome_prodotto}}</td>
+            <td>{{m.giacenza}}</td>
+            <td>{{m.data_entrata}}</td>
+            {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
+
+
+
+{% endblock content %}

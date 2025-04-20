@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Elenco Fatture Attive{% endblock title %}
+
+{% block content %}
+
+<div class='jumbotron container table-responsive text-center'>
+    <h3>Elenco Fatture Attive non ancora incassate</h3>
+    <table class='table table-hover'>
+        <thead>
+        <tr>
+            <th scope='col'>Data Fattura</th> 
+            <th scope='col'>Numero Fattura</th>
+            <th scope='col'>Cliente</th>
+            <th scope='col'>Importo</th>
+            <th scope='col'>Pagata</th>
+            <th scope='col'>Scadenza</th>
+            <th scope='col'>Pdf Fattura</th>
+            <th scope='col'>Invia fattura al cliente</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in fatture %}
+        <tr>
+            <td scope='col'>{{r.data_fattura|date:'d-m-y'}}</td>
+            <td scope='col'>{{r.pk}}</td>
+            <td scope='col'>{% if r.azienda %}{{r.azienda.ragioneSociale}}{% else %}{{r.privato.ragioneSociale}}{% endif %}</td>
+            <td scope='col'>{{r.totale}}</td>
+            <td scope='col'>{% if r.da_incassare %}da saldare {% else %}pagata{% endif %}</td>
+            <td scope='col'>{{r.data_scadenza|date:'d-m-y'}}</td>
+            <td scope='col'><a href="{% url 'contabilità:vedipdf' r.pk %}"><i class='fa fa-file-pdf' style='color:#fdc57b'></i></a></td>
+            <td scope='col'><a href="{% url 'contabilità:pdffattura' r.pk %}"><i class='fa fa-envelope' style='color:red'></i></a></td>
+        </tr>{% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% endblock content %}

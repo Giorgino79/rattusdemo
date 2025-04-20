@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% url 'anagrafica:vedicodice' as codice %}
+{% block title %} {{ block.super }} Elenco Mezzi{% endblock title %}
+
+
+{% block content %}
+
+<h3 class='text-center'>Elenco Automezzi</h3>
+
+<hr>
+<div class='container jumbotron text-center'>
+  <div class='table-responsive'>
+<table class="table" >
+    <thead>
+      <tr>
+        <th scope="col">Targa</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Modello</th>
+        <th scope="col">Data Revisione</th>
+        <th scope="col">Vedi Scheda </th>
+        <th scope="col">Aggiorna Scheda </th>
+        <th scope="col">Aggiorna Prodotti </th>
+        
+      </tr>
+    </thead>
+    <tbody>{% for c in  mezzi %}
+      <tr>
+        
+        <th scope="row">{{c.targa}}</th>
+        <td>{{c.marca}}</td>
+        <td>{{c.modello}}</td>
+        <td>{{c.data_revisione}}</td>
+        <td><a href='{{c.get_absolute_url}}'><i class='fa-solid fa-arrow-pointer'></i></td>
+          <td><a href="{% url 'automezzi:aggiornamezzo' pk=c.pk %}"><i class='fas fa-edit'></i></td>
+            <td><a href="{% url 'logistica:caricamezzo' pk=c.pk %}"><i class='fas fa-edit'></i></td>
+              {% endfor %}
+      </tr>
+      <tr>
+      </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel='shortcut icon' type='image/png' href="{% static 'iconarattus.png'%}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+        <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4-qqPBZVvaJmPCTw9uTM2Ai90pUceI5I&callback=initMap"></script>
+
+        {% load django_bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        {% block scripts %} {% endblock scripts %}
+    </head>
+    <style>
+        
+         
+        .time-display {
+            text-align: center;
+            font-size: 16px;
+            color:grey;
+        }
+        .date-display {
+            text-align: center;
+            font-size: 16px;
+            color:grey;
+        }
+        #back{
+           background-color:red;
+        } 
+        .jumbotron{
+            background-color:white;
+            color:#1d1716;
+            border-radius:10px;
+    
+        }
+        .order-3{
+          background-color:#6892d5;
+        }
+        body{
+            background-color:#fffdf6;
+        }
+    </style>
+<body>
+<nav>
+    <div class="container-fluid rattus"> 
+            {% include "components/navbaramministratore.html" %} 
+    </nav>
+    </div>
+        
+<main class='container-fluid responsive'>
+    {% include "components/messaging.html" %} 
+    {% block content %}            
+                {% endblock content %} 
+</main>
+
+        </div>
+    </div>
+
+
+<script>
+    // Update time and date
+    function updateDateTime() {
+    const now = new Date();
+    const timeDisplay = document.getElementById('time');
+    const dateDisplay = document.getElementById('date');
+
+    // Update time
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    timeDisplay.textContent = `${hours}:${minutes}`;
+
+    // Update date
+    const options = { weekday: 'long', month: 'short', day: 'numeric' };
+    dateDisplay.textContent = now.toLocaleDateString('it', options);
+    }
+
+
+    // Initialize
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+</script> 
+<script src="{% static 'js/jquery-3.6.0.min.js' %}" defer ></script>
+</body>
+</html>
